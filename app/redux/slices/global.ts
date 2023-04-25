@@ -10,7 +10,7 @@ interface globalState {
 
 const initialState : globalState = {
    products: null,
-   authPopup: true,
+   authPopup: false,
 };
 
 
