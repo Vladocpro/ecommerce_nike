@@ -2,6 +2,8 @@ import './globals.css'
 import React from "react";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import Providers from "./components/Provider";
+import AuthPopup from "./components/AuthPopup";
 
 export default function RootLayout({
   children,
@@ -16,9 +18,12 @@ export default function RootLayout({
       */}
       <head />
       <body>
+      <Providers>
       <Header/>
-      <main className="flex-grow w-100%">{children}</main>
-      <Footer/>
+         <main className="flex-grow w-100%">{children}</main>
+         <AuthPopup/>
+         <Footer/>
+         </Providers>
       </body>
     </html>
   )
