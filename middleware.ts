@@ -3,8 +3,8 @@ import {verifyAuth} from "./lib/auth";
 
 
 export async function middleware(req: NextRequest) {
-   console.log("Working")
    const token = req.cookies.get('user-token')?.value
+   console.log("Working")
 
    const verifiedToken = token && (
        await verifyAuth(token).catch((err : Error) => {

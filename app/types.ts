@@ -21,3 +21,8 @@ export type Order = {
    tracking_number: String,
    productId: String
 }
+export type LoginForm = {
+   email: string,
+   password: string,
+   repPassword: string
+}
