@@ -26,3 +26,7 @@ export type LoginForm = {
    password: string,
    repPassword: string
 }
+export type Auth = {
+   email: string,
+   password: string,
+}

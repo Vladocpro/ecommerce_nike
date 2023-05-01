@@ -4,14 +4,21 @@ import {verifyAuth} from "./lib/auth";
 
 export async function middleware(req: NextRequest) {
    const token = req.cookies.get('user-token')?.value
-   console.log("Working")
+
+
+
+
+   console.log(req.cookies)
+   console.log("Middleware")
 
    const verifiedToken = token && (
        await verifyAuth(token).catch((err : Error) => {
           console.log(err)
        })
    )
-
+   if(req.nextUrl.pathname.startsWith('/') && !verifiedToken) {
+      return
+   }
    if(req.nextUrl.pathname.startsWith('/login') && !verifiedToken) {
       return
    }
@@ -26,5 +33,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-   matcher: ['/orders','/saved', '/dash']
+   matcher: ['/','/orders','/saved', '/dash']
 }

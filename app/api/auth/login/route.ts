@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import client  from "../../../../lib/prismadb";
-export async function POST(req : any) {
+import {NextResponse} from "next/server";
+export async function POST(req : any, res : NextResponse) {
    try {
-      console.log("HEllo")
       const body = await req.json();
 
       const user = await client.user.findFirst({
@@ -10,19 +10,20 @@ export async function POST(req : any) {
             email: body.email
          }
       })
-      if(!user) return new Error("No user with this email")
-      console.log("DOO")
-      const password = await bcrypt.compare(body.password, user!.password);
 
-      if(password) return new Response(JSON.stringify(user))
+      if(!user) return NextResponse.json({error: "No user with this email"})
 
-      return new Error("Incorrect password")
+      const passwordIsValid = await bcrypt.compare(body.password, user!.password);
+
+      if(!passwordIsValid) return NextResponse.json({error: "Incorrect password"})
+      res.cookies.set("user-token", "YEAH")
+
+      return  NextResponse.json({message: "Authenticated", user: user})
+
    } catch (error : any) {
       console.log(error)
+      // console.log(error)
    }
 
 }
 
-export async function GET(req : any) {
-   return new Response(JSON.stringify({message: "hello"}))
-}

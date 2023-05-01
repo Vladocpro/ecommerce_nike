@@ -1,16 +1,18 @@
 "use client"
 
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../redux/store";
-import {setAuthPopup} from "../redux/slices/global";
+import {setAuthPopup, setToastPopup, ToastPositions, ToastType} from "../redux/slices/modals";
 import {useForm} from "react-hook-form";
 import {LoginForm} from "../types";
+import {postFetch} from "../../lib/fetcher";
 
 const AuthPopup = () => {
 
-   const authPopup = useSelector((state : RootState) => state.global.authPopup)
+   const authPopup = useSelector((state : RootState) => state.modals.authPopup)
    const [isRegister, setIsRegister] = useState<boolean>(false);
+
    const {register, handleSubmit, reset, clearErrors, formState: {errors, isValid}} = useForm({
       defaultValues: {
          email: '',
@@ -21,21 +23,28 @@ const AuthPopup = () => {
    })
 
    const dispatch = useDispatch();
-
    const onSubmit = async (values : LoginForm) => {
+
       const {repPassword, ...data} = values
       try {
          if(isRegister) {
-           const bla = await fetch('/api/auth/register', {method: "POST", body: JSON.stringify(data)})
-            console.log(bla)
+
+           const response = await fetch('/api/auth/register', {method: "POST", body: JSON.stringify(data)})
+            // console.log(bla)
          } else {
-            const bla = await fetch('/api/auth/login', {method: "POST", body: JSON.stringify(data)})
-            console.log(bla)
+            const response = await postFetch('/api/auth/login', data)
+            if(response.error) {
+               dispatch(setToastPopup({visible: true, message: response.error, position: ToastPositions.AUTH, type: ToastType.ERROR}))
+               return;
+            }
+            dispatch(setToastPopup({visible: true, message: response.message, position: ToastPositions.AUTH, type: ToastType.SUCCESS}))
+
+
          }
-      } catch (e) {
+      } catch (e : any) {
          console.log(e)
       }
-      console.log(data)
+      // console.log(data)
       // setWaitingForServerRes()
       // const data = await dispatch(fetchAuth(values))
       // setIsDataFetched(false)
@@ -62,7 +71,7 @@ const AuthPopup = () => {
    return (
        <div className="flex items-center justify-center absolute inset-0">
           <div className={`absolute inset-0  bg-[rgba(111,111,111,0.2)] transition-all duration-300 h-full w-full ${authPopup ? "visible" : "invisible opacity-0"}`} onClick={closePopup}/>
-          <form className="relative  w-80 py-5 flex flex-col bg-white rounded-lg" onSubmit={handleSubmit(onSubmit)}>
+          <form className="relative  w-80 py-5 flex flex-col bg-white rounded-lg" onSubmit={ handleSubmit(onSubmit)}>
              <span className="absolute font-semibold text-xl top-3 right-4 cursor-pointer" onClick={closePopup}>X</span>
              <button className="mx-auto mt-1 text-lg font-semibold">{!isRegister ? "Login" : "Sign up"}</button>
              <input placeholder="Email"    type="text" id="email"

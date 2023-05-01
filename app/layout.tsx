@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer";
 import Providers from "./components/Provider";
 import AuthPopup from "./components/AuthPopup";
+import Toast from "./components/ToastNotification";
 
 export default function RootLayout({
   children,
@@ -22,8 +23,9 @@ export default function RootLayout({
       <Header/>
          <main className="flex-grow w-100%">{children}</main>
          <AuthPopup/>
+         <Toast />
          <Footer/>
-         </Providers>
+      </Providers>
       </body>
     </html>
   )

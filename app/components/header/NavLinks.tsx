@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import Link from "next/link";
 import {useDispatch} from "react-redux";
-import {setAuthPopup} from "../../redux/slices/global";
+import {setAuthPopup} from "../../redux/slices/modals";
 import Tooltip from "../Tooltip";
 
 const NavLinks = () => {

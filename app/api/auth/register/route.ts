@@ -13,6 +13,7 @@ export async function POST(req : any) {
 
       return new Response(JSON.stringify({message: "User has been created"}))
    } catch (error : any) {
+      console.log("Chto eto")
       if(error.meta.target === "email_1") console.log("The email is already taken")
    }
 

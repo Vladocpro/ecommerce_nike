@@ -1,14 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
-import {User} from "../../types";
+import {Product, User} from "../../types";
 
 
 interface authState {
-   data: User | null
+   user: User | null,
+   products: Product[] | null,
+
 }
 
 const initialState : authState = {
-   data: null
+   user: null,
+   products:  null,
 };
 
 
@@ -17,10 +20,10 @@ const authSlice = createSlice({
    initialState,
    reducers: {
       logout: (state) => {
-         state.data = null;
+         state.user = null;
       },
       setAuthData: (state, action: PayloadAction<User>) => {
-         state.data = action.payload;
+         state.user = action.payload;
       },
    },
 })
