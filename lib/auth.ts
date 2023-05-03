@@ -1,4 +1,5 @@
-import {jwtVerify} from "jose";
+import {jwtVerify, SignJWT} from "jose";
+import {User} from "../app/types";
 
 interface UserJwtPayload {
    jti: string,
@@ -19,5 +20,13 @@ export const verifyAuth = async (token: string) => {
    } catch (error) {
       throw new Error('Your token has expired')
 
+   }
+}
+
+export const createJWT = async (user: User) => {
+   try {
+      return await new SignJWT({id: user.id}).setExpirationTime("2h").setIssuedAt().setProtectedHeader({alg: "HS256"}).sign(new TextEncoder().encode(getJwtSecretKey()))
+   } catch (error) {
+      console.log(error)
    }
 }

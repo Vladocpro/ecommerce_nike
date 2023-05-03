@@ -2,13 +2,14 @@
 
 import React, {useState} from 'react';
 import Link from "next/link";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAuthPopup} from "../../redux/slices/modals";
 import Tooltip from "../Tooltip";
+import {RootState} from "../../redux/store";
 
 const NavLinks = () => {
 
-   const [isAuth, setIsAuth] = useState<boolean>(false)
+   const isAuth= useSelector((state : RootState) => state.auth.user)
    const dispatch = useDispatch()
 
    return (
@@ -45,27 +46,27 @@ const NavLinks = () => {
 
           {
              isAuth ?
-                 <Link href="/" className="headerSvg after:left-[-8px] after:top-[-5px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="logInSvg">
-                       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                       <polyline points="16 17 21 12 16 7"></polyline>
-                       <line x1="21" y1="12" x2="9" y2="12"></line>
-                    </svg>
-                 </Link>
+                 <Tooltip text="Log out">
+                    <Link href="/" className="headerSvg after:left-[-8px] after:top-[-5px]">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="logInSvg">
+                          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                          <polyline points="16 17 21 12 16 7"></polyline>
+                          <line x1="21" y1="12" x2="9" y2="12"></line>
+                       </svg>
+                    </Link>
+                 </Tooltip>
                  :
-                 <Link href="/" className="headerSvg after:left-[-4px] after:top-[-5px]" onClick={() => dispatch(setAuthPopup(true))}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"  className="logInSvg">
-                       <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                       <polyline points="10 17 15 12 10 7"></polyline>
-                       <line x1="15" y1="12" x2="3" y2="12"></line>
-                    </svg>
-                 </Link>
+                 <Tooltip text="Log in">
+                    <Link href="/" className="headerSvg after:left-[-4px] after:top-[-5px]" onClick={() => dispatch(setAuthPopup(true))}>
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"  className="logInSvg">
+                          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                          <polyline points="10 17 15 12 10 7"></polyline>
+                          <line x1="15" y1="12" x2="3" y2="12"></line>
+                       </svg>
+                    </Link>
+                 </Tooltip>
+
           }
-          {/*<Link href="/" className="headerSvg after:top-[-4px]">*/}
-          {/*   <svg xmlns="http://www.w3.org/2000/svg" height={24}  fill="black"  viewBox="0 0 32 32">*/}
-          {/*      <path d="M11.575 15.664C5.453 17.554 1 23.261 1 30a1 1 0 0 0 2 0c0-7.175 5.825-13 13-13s13 5.825 13 13a1 1 0 0 0 2 0c0-6.739-4.453-12.446-10.575-14.336A7.994 7.994 0 0 0 24 9c0-4.415-3.585-8-8-8S8 4.585 8 9a7.994 7.994 0 0 0 3.575 6.664ZM16 3c3.311 0 6 2.689 6 6s-2.689 6-6 6-6-2.689-6-6 2.689-6 6-6Z"/>*/}
-          {/*   </svg>*/}
-          {/*</Link>*/}
        </div>
    );
 };

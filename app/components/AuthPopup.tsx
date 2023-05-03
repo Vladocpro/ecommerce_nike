@@ -3,14 +3,15 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../redux/store";
-import {setAuthPopup, setToastPopup, ToastPositions, ToastType} from "../redux/slices/modals";
+import {closeToastPopup, setAuthPopup, setToastPopup, ToastPositions, ToastType} from "../redux/slices/modals";
 import {useForm} from "react-hook-form";
 import {LoginForm} from "../types";
 import {postFetch} from "../../lib/fetcher";
+import {setAuthData} from "../redux/slices/auth";
 
 const AuthPopup = () => {
 
-   const authPopup = useSelector((state : RootState) => state.modals.authPopup)
+   const authPopup : boolean = useSelector((state : RootState) => state.modals.authPopup)
    const [isRegister, setIsRegister] = useState<boolean>(false);
 
    const {register, handleSubmit, reset, clearErrors, formState: {errors, isValid}} = useForm({
@@ -27,51 +28,41 @@ const AuthPopup = () => {
 
       const {repPassword, ...data} = values
       try {
-         if(isRegister) {
+         let response = null
+         if(isRegister)
+              response = await postFetch('/api/auth/register', data)
+           else
+              response = await postFetch('/api/auth/login', data)
 
-           const response = await fetch('/api/auth/register', {method: "POST", body: JSON.stringify(data)})
-            // console.log(bla)
-         } else {
-            const response = await postFetch('/api/auth/login', data)
-            if(response.error) {
-               dispatch(setToastPopup({visible: true, message: response.error, position: ToastPositions.AUTH, type: ToastType.ERROR}))
-               return;
-            }
-            dispatch(setToastPopup({visible: true, message: response.message, position: ToastPositions.AUTH, type: ToastType.SUCCESS}))
-
-
+         if(response.error) {
+            dispatch(setToastPopup({visible: true, message: response.error, position: ToastPositions.AUTH, type: ToastType.ERROR}))
+            return;
          }
+         localStorage.setItem('user-token', response.token)
+         dispatch(setAuthData(response.user))
+         dispatch(setToastPopup({visible: true, message: response.message, position: ToastPositions.AUTH, type: ToastType.SUCCESS, duration: 1000}))
+         closePopup();
       } catch (e : any) {
          console.log(e)
       }
-      // console.log(data)
-      // setWaitingForServerRes()
-      // const data = await dispatch(fetchAuth(values))
-      // setIsDataFetched(false)
-      // if(!data.payload) {
-      //    alert('Incorrect login or password');
-      //    return;
-      // }
-      // if('token' in data.payload) window.localStorage.setItem('token', data.payload.token)
-      // navigate("/")
    }
 
 
    const closePopup = () => {
-      reset()
-      setIsRegister(false);
       dispatch(setAuthPopup(false));
+      setIsRegister(false);
+      reset()
    }
 
-   if(!authPopup) {
-      return null
-   }
+   // if(!authPopup) {
+   //    return null
+   // }
 
 
    return (
-       <div className="flex items-center justify-center absolute inset-0">
-          <div className={`absolute inset-0  bg-[rgba(111,111,111,0.2)] transition-all duration-300 h-full w-full ${authPopup ? "visible" : "invisible opacity-0"}`} onClick={closePopup}/>
-          <form className="relative  w-80 py-5 flex flex-col bg-white rounded-lg" onSubmit={ handleSubmit(onSubmit)}>
+       <div className={`flex items-center justify-center absolute inset-0 transition-all duration-500 ${authPopup ? "visible" : "invisible opacity-0"}`}>
+          <div className={`absolute inset-0  bg-[rgba(111,111,111,0.2)] transition-all duration-500 h-full w-full ${authPopup ? "visible" : "invisible opacity-0"}`} onClick={closePopup}/>
+          <form className={`relative  w-80 py-5 flex flex-col bg-white rounded-lg transition-all duration-300 ${authPopup ? "translate-y-0" : "-translate-y-32 opacity-0"}`} onSubmit={ handleSubmit(onSubmit)}>
              <span className="absolute font-semibold text-xl top-3 right-4 cursor-pointer" onClick={closePopup}>X</span>
              <button className="mx-auto mt-1 text-lg font-semibold">{!isRegister ? "Login" : "Sign up"}</button>
              <input placeholder="Email"    type="text" id="email"

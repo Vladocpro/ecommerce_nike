@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import client  from "../../../../lib/prismadb";
 import {NextResponse} from "next/server";
+import {SignJWT} from "jose";
+import {createJWT, getJwtSecretKey} from "../../../../lib/auth";
 export async function POST(req : any, res : NextResponse) {
    try {
       const body = await req.json();
@@ -16,10 +18,10 @@ export async function POST(req : any, res : NextResponse) {
       const passwordIsValid = await bcrypt.compare(body.password, user!.password);
 
       if(!passwordIsValid) return NextResponse.json({error: "Incorrect password"})
-      res.cookies.set("user-token", "YEAH")
 
-      return  NextResponse.json({message: "Authenticated", user: user})
-
+      const token : string | undefined   = await createJWT(user)
+      const {password, ...userData} = user
+      return NextResponse.json({message: "Authenticated", token: token, user: userData})
    } catch (error : any) {
       console.log(error)
       // console.log(error)

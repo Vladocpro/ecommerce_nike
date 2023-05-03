@@ -6,10 +6,8 @@ export async function middleware(req: NextRequest) {
    const token = req.cookies.get('user-token')?.value
 
 
-
-
-   console.log(req.cookies)
-   console.log("Middleware")
+   // console.log(req.cookies)
+   // console.log("Middleware")
 
    const verifiedToken = token && (
        await verifyAuth(token).catch((err : Error) => {

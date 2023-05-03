@@ -13,12 +13,12 @@ interface toastPopup {
 }
 
 export enum ToastPositions  {
-   AUTH = "left-1/2 top-5 -translate-x-1/2",
+   AUTH = "inline-block self-center top-5",
    RIGHT=  ""
 }
 export enum ToastType  {
    SUCCESS = "bg-green-500",
-   ERROR =  "bg-red-500"
+   ERROR   = "bg-red-500",
 }
 
 interface modalState {
@@ -46,11 +46,11 @@ const modalsSlice = createSlice({
          state.authPopup = action.payload;
       },
       setToastPopup: (state, action: PayloadAction<toastPopup>) => {
-         state.toastPopup.visible = action.payload.visible;
          state.toastPopup.message = action.payload.message;
          state.toastPopup.position = action.payload.position;
          state.toastPopup.type = action.payload.type;
          if(action.payload.duration) state.toastPopup.duration = action.payload.duration;
+         state.toastPopup.visible = action.payload.visible;
 
       },
       closeToastPopup: (state) => {
