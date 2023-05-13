@@ -11,25 +11,64 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  email         String   @unique
-  password      String
-  savedProducts String[] @default([])
-  orders        String[] @default([])
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  orders        Order[]
+  savedProducts Product[] @relation("SavedProducts")
+  cart          Product[] @relation("CartProducts")
+  accounts      Account[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
+  price       Float
   sizes       String[] @default([])
-  sale        Int
-  releaseDate DateTime
-  category    String   @unique
+  images      String[] @default([])
+  gender      String
+  sale        Float
+  category    String
+  savedById   String?  @db.ObjectId
+  cartById    String?  @db.ObjectId
+  orderId     String?  @unique @db.ObjectId
+
+  savedBy User?  @relation("SavedProducts", fields: [savedById], references: [id], onDelete: Cascade)
+  cartBy  User?  @relation("CartProducts", fields: [cartById], references: [id], onDelete: Cascade)
+  order   Order? @relation("OrderProduct", fields: [orderId], references: [id])
 }
 
 model Order {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
   tracking_number String @unique @default(uuid())
-  productId       String @unique @db.ObjectId
+  userId          String @db.ObjectId
+  productId       String @db.ObjectId
+
+  product Product? @relation("OrderProduct")
+  User    User?    @relation(fields: [userId], references: [id])
 }

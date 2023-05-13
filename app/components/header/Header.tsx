@@ -2,8 +2,9 @@ import React from 'react';
 import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
 import NavLinks from "./NavLinks";
-const Header = () => {
 
+
+const Header =  () => {
 
    return (
        <header className="container">
@@ -15,11 +16,11 @@ const Header = () => {
              </Link>
 
              <div className="hidden  space-x-20 font-semibold text-lg sm:block">
-                <span className="headerLinks">Store</span>
-                <span className="headerLinks">Sales</span>
+                <Link className="headerLinks" href="/store">Store</Link>
+                <Link className="headerLinks" href="/sales">Sales</Link>
              </div>
 
-            <NavLinks/>
+            <NavLinks />
             <BurgerMenu/>
           </nav>
        </header>

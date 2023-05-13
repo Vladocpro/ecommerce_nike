@@ -5,7 +5,7 @@ import {verifyAuth} from "./lib/auth";
 export async function middleware(req: NextRequest) {
    const token = req.cookies.get('user-token')?.value
 
-
+   // console.log(window.localStorage.getItem("user-token"))
    // console.log(req.cookies)
    // console.log("Middleware")
 
@@ -31,5 +31,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-   matcher: ['/','/orders','/saved', '/dash']
+   matcher: ['/','/orders','/saved']
 }

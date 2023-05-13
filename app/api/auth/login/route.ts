@@ -24,7 +24,6 @@ export async function POST(req : any, res : NextResponse) {
       return NextResponse.json({message: "Authenticated", token: token, user: userData})
    } catch (error : any) {
       console.log(error)
-      // console.log(error)
    }
 
 }

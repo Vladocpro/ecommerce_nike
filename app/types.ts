@@ -1,25 +1,31 @@
 
 export type User = {
-   id: String,
-   email: String,
-   password: String,
-   savedProducts: String[],
-   orders: String[]
+   id:            string,
+   email?:         string,
+   password?:      string,
+   orders:        string[],
+   savedProducts: string[],
+   cart:          string[],
+   createdAt:     Date,
+   updatedAt:     Date,
 }
 
 export type Product = {
-   id: String,
-   title: String,
-   description: String,
-   sizes: String[],
-   sale: Number,
-   releaseDate: Date,
-   category: String
+   id          :string,
+   title       :string,
+   description :string,
+   price       :number
+   sizes       :string[],
+   images      :string[],
+   category    :String,
+   gender      :string,
+   sale        :number,
 }
 export type Order = {
-   id: String,
-   tracking_number: String,
-   productId: String
+   id:              string,
+   tracking_number: string,
+   productId:       string,
+   userId:          string
 }
 export type LoginForm = {
    email: string,
