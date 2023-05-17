@@ -3,6 +3,7 @@
 import React, {FC} from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Image from "next/image";
 interface SliderProps {
    slides: string[],
    showDots: boolean
@@ -27,10 +28,12 @@ const Slider: FC<SliderProps> = ({slides, showDots}) => {
       },
       tablet: {
          breakpoint: { max: 1024, min: 640 },
+         partialVisibilityGutter: 40,
          items: 2
       },
       mobile: {
          breakpoint: { max: 639, min: 0 },
+         partialVisibilityGutter: 35,
          items: 1
       }
    };
@@ -70,6 +73,8 @@ const Slider: FC<SliderProps> = ({slides, showDots}) => {
               showDots={showDots}
               ssr={true} // means to render carousel on server-side.
               infinite={true}
+              // centerMode={true}
+              partialVisbile={true}
               customRightArrow={<CustomRightArrow  />}
               customLeftArrow={<CustomLeftArrow  />}
               keyBoardControl={true}

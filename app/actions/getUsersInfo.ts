@@ -2,7 +2,7 @@ import prisma from "../../lib/prismadb";
 
 import getCurrentUser from "./getCurrentUser";
 
-export default async function getUserSavedProducts() {
+export default async function getUsersInfo() {
    try {
       const currentUser = await getCurrentUser();
 
@@ -13,7 +13,7 @@ export default async function getUserSavedProducts() {
       const products = await prisma.product.findMany({
          where: {
             id: {
-               in: [...(currentUser.savedProducts || [])]
+               in: [...(currentUser.favorites || [])]
             }
          }
       });

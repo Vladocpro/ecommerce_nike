@@ -6,22 +6,22 @@ const year = new Date().getFullYear()
 const Footer = () => {
    return (
        <footer className=" bg-[#111111] py-2">
-            <div className="container text-white footerTextResize">
+            <div className="Container text-white footerTextResize">
                <div className="flex justify-between  gap-1 py-2 md:py-5">
                   <section className="grid grid-cols-3  gap-3 w-[100%]">
-                     <ul className="footerTitle flex flex-col gap-2">
+                     <ul className="footerTitle flex flex-col gap-3 sm:gap-2">
                         <li><a className="footerLink" href="https://www.nike.com/gb/gift-cards">Gift Cards</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/retail/">Find a Store</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/stories">Nike Journal</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/stories">Feedback</a></li>
                      </ul>
-                     <ul className="text-zinc-500 flex flex-col gap-2">
+                     <ul className="text-zinc-500 flex flex-col gap-3 sm:gap-2">
                         <li><a className="footerTitle footerLink" href="https://www.nike.com/gb/help">Get Help</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/orders/details">Order Status</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/help/a/returns-policy-eu">Returns</a></li>
                         <li><a className="footerLink" href="https://www.nike.com/gb/help/#contact">Contact Us</a></li>
                      </ul>
-                     <ul className="text-zinc-500 flex flex-col gap-2">
+                     <ul className="text-zinc-500 flex flex-col gap-3 sm:gap-2">
                         <li><a className="footerTitle footerLink" href="https://about.nike.com/">About nike</a></li>
                         <li><a className="footerLink" href="https://news.nike.com/">News</a></li>
                         <li><a className="footerLink" href="https://jobs.nike.com/">Careers</a></li>

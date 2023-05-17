@@ -66,7 +66,7 @@ a {
 .footerSocials {
   @apply  hover:opacity-80 transition-opacity ease-in-out duration-200 h-[25px] md:h-[40px]
 }
-.container {
+.Container {
   @apply w-[95%] sm:w-[94%] mx-auto
 }
 input:checked + div {
@@ -94,7 +94,21 @@ input:checked + div svg {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-
+/*.line-clamp-7 {*/
+/*  overflow: hidden;*/
+/*  display: -webkit-box;*/
+/*  -webkit-box-orient: vertical;*/
+/*  -webkit-line-clamp: 7;*/
+/*}*/
+.react-multi-carousel-dot button {
+  border: transparent !important;
+  opacity: 75% !important;
+  background-color: rgb(209 213 219 / 75%) !important;
+}
+.react-multi-carousel-dot--active button {
+  opacity: 100% !important;
+  background-color: rgb(75 85 99 / 100%) !important;
+}
 ::-webkit-scrollbar {
   background-color: white;
   width: 12px;

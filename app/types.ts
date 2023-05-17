@@ -4,8 +4,8 @@ export type User = {
    email?:         string,
    password?:      string,
    orders:        string[],
-   savedProducts: string[],
-   cart:          string[],
+   favorites:     Product[],
+   cart:          Product[],
    createdAt:     Date,
    updatedAt:     Date,
 }
@@ -16,10 +16,11 @@ export type Product = {
    description :string,
    price       :number
    sizes       :string[],
-   images      :string[],
+   images      :{title: string, isAvailable: boolean}[],
    category    :String,
    gender      :string,
    sale        :number,
+   quantity?    :number
 }
 export type Order = {
    id:              string,

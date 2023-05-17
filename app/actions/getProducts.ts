@@ -11,6 +11,7 @@ export async function getProducts() {
    }
 }
 
+
 export  async function getProductById(productId: string) {
    try {
       const product : Product | null = await prisma.product.findUnique({

@@ -19,6 +19,7 @@ export enum ToastPositions  {
 export enum ToastType  {
    SUCCESS = "bg-green-500",
    ERROR   = "bg-red-500",
+   BLACK   = "bg-black",
 }
 
 interface modalState {

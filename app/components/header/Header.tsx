@@ -7,7 +7,7 @@ import NavLinks from "./NavLinks";
 const Header =  () => {
 
    return (
-       <header className="container">
+       <header className="Container">
           <nav className="flex text-black h-[62px] items-center justify-between">
              <Link href="/">
                 <svg  viewBox="0 5 25 14" height={48}  fill="black" className="group hover:fill-customGray">

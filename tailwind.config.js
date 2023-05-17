@@ -10,6 +10,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        productSizeSection: "repeat(auto-fit, minmax(330px, 440px))",
+      },
+      screens: {
+        'mobile': {'max': '470px'},
+      },
+      zIndex: {
+        '13': '13',
+      },
+      lineClamp: {
+        7: '7',
+      },
       colors: {
         customGray: "#767575",
       },

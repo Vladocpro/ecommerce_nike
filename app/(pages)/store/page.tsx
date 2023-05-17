@@ -2,6 +2,7 @@ import React from 'react';
 import { getProducts } from "../../actions/getProducts";
 import DropDownSelect from "../../components/DropDownSelect";
 import ProductLayout from "../../components/store/ProductLayout";
+import Filters from "../../components/store/Filters";
 
 const Store = async () => {
 
@@ -10,11 +11,7 @@ const Store = async () => {
 
    return (
        <div className="flex flex-col w-[94%]  mx-auto">
-          <div className="flex items-center justify-between mt-3 mb-5">
-             <span className="ml-12 text-xl font-medium  mx-auto">Filters</span>
-             <input type="text" className="bg-gray-200  px-5 mx-5 py-2 rounded-full mr-10 " placeholder="Search"/>
-             <span className="text-lg font-medium">Sort By</span>
-          </div>
+          <Filters/>
           <div className="flex">
              <aside className="hidden lg:block ml-1 w-[260px] h-full">
                 <DropDownSelect title="On Sale" options={["Sale"]} />

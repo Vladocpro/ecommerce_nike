@@ -3,7 +3,7 @@
 import React from 'react';
 import { CldImage } from 'next-cloudinary';
 import Image from "next/image";
-import {postFetch} from "../../../lib/fetcher";
+import {getFetch,postFetch} from "../../../lib/fetcher";
 
 const Sales =  () => {
    return (
@@ -17,6 +17,7 @@ const Sales =  () => {
                     width={300}
                     className="w-[92px] h-[92px]  object-cover" alt=""/>
              <button onClick={() => postFetch("/api/product", {})}>Click me</button>
+             <button onClick={async () => console.log(await getFetch("/api/testik"))} >See prods</button>
              {/*</div>*/}
              {/*<CldImage*/}
              {/*    deliveryType="fetch"*/}
