@@ -14,41 +14,37 @@ export async function PATCH(req: Request) {
    if (!currentUser) {
       return NextResponse.error();
    }
+   const product = body.product
    try {
       let initialCart = [...(currentUser.cart || [])];
-      const product = body.product
-
-
-      // let cart: any[]  =  initialCart.map((cartProduct) => {
-      //    for (const size of body.sizes) {
-      //       if(cartProduct.sizes === size && product.id === cartProduct.id) {
-      //          let copyQuantity = cartProduct.quantity;
-      //             return {...cartProduct, quantity: copyQuantity++}
-      //       }
-      //    }
-      //    return {...cartProduct}
-      // })
-
-      let cart = []
-      // if(initialCart.find((item) => item.id === product.id && item.sizes === body.sizes[0])) {
-      //    console.log("Yes")
-      // }
-      for (const size of body.sizes) {
-         let pushed = false
-         for (const cartProduct of initialCart) {
-            if(cartProduct.sizes === size && product.id === cartProduct.id) {
-               let copyQuantity = cartProduct.quantity;
-               cart.push({...cartProduct, quantity: copyQuantity+=1})
-               pushed = true
-               continue;
+      let sizes = body.sizes.map((size : string) => {
+         return {title: size, isPushed: false}
+      })
+      let cart = [];
+      for (let size of sizes) {
+         for (let  i= 0; i < initialCart.length; i++) {
+            if(initialCart[i].size === size.title && !size.isPushed && product.id === initialCart[i].id) {
+               let copyQuantity = initialCart[i].quantity;
+               cart.push({...initialCart[i], quantity: copyQuantity+=1})
+               size.isPushed = true
+               initialCart.splice(i, 1);
+               i--;
+               break;
             }
-            pushed = true
-            cart.push({...cartProduct})
          }
-            if(!pushed) cart.push({...product, sizes: size, quantity: 1})
       }
 
-      // console.log(cart)
+      if(initialCart.length > 0) {
+         for (const item of initialCart) {
+            cart.push({...item})
+         }
+      }
+
+      for (const size of sizes) {
+         if(!size.isPushed) {
+            cart.push({...product, quantity: 1, size: size.title})
+         }
+      }
 
       const user = await prisma.user.update({
          where: {
@@ -60,32 +56,31 @@ export async function PATCH(req: Request) {
             }
          }
       });
-      return NextResponse.json(user.cart)
+      return NextResponse.json(currentUser.cart)
 
    } catch (e) {
       console.log(e)
    }
 }
 
-export async function DELETE(req: Request) {
+export async function PUT(req: Request) {
+
+   // Delete
 
    const body = await req.json();
-
    const currentUser  = await getCurrentUser();
    if (!currentUser) {
       return NextResponse.error();
    }
+
    try {
-      let cart = [...(currentUser.cart || [])];
-      const product = body.product
-      cart.filter((item) => (item!.id !== product.id && item!.sizes !== product.sizes))
-      const user = await prisma.user.update({
+      await prisma.user.update({
          where: {
             id: currentUser.id
          },
          data: {
             cart: {
-               set: cart
+               set: body.products
             }
          }
       });

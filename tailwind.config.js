@@ -15,6 +15,7 @@ module.exports = {
       },
       screens: {
         'mobile': {'max': '470px'},
+        'cartPage': {'max': '850px'},
       },
       zIndex: {
         '13': '13',

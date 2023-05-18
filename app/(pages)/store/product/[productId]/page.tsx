@@ -59,14 +59,14 @@ const Home =  () => {
       }
 
       setSizes([])
+
       if(action === ButtonAction.ADDTOBAG) {
          dispatch(setToastPopup({visible: true, message: "Added to Cart", position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
-         await axios.patch("/api/cart", {product: {...product, sizes: []}, sizes: sizes}).catch((e) => console.log(e))
+         await axios.patch("/api/cart", {product: product, sizes: sizes}).catch((e) => console.log(e))
       } else {
          dispatch(setToastPopup({visible: true, message: "Added to Favorites", position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
-         await axios.patch("/api/favorites", {product: {...product, sizes: []}, sizes: sizes}).catch((e) => console.log(e))
+         await axios.patch("/api/favorites", {product: product, sizes: sizes}).catch((e) => console.log(e))
       }
-
    };
 
    const SizeElement = ({size, key} : {size:  {title: string, isAvailable: boolean}, key: number }) => {
