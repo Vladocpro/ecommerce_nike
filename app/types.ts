@@ -20,7 +20,8 @@ export type Product = {
    category    :String,
    gender      :string,
    sale        :number,
-   quantity?    :number
+   quantity?   :number,
+   size?       :number
 }
 export type Order = {
    id:              string,

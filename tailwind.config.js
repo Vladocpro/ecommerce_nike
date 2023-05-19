@@ -17,6 +17,9 @@ module.exports = {
         'mobile': {'max': '470px'},
         'cartPage': {'max': '850px'},
       },
+      transitionProperty: {
+        'height': 'height',
+      },
       zIndex: {
         '13': '13',
       },

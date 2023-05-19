@@ -49,23 +49,29 @@ const Home =  () => {
 
 
    const buttonClick = async  (action : ButtonAction) => {
-      if(sizes.length === 0) {
-         dispatch(setToastPopup({visible: true, message: "You need to select sizes", position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
-         return
-      }
+
       if(!product) {
          dispatch(setToastPopup({visible: true, message: "Please reload the page", position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
          return
       }
 
-      setSizes([])
 
       if(action === ButtonAction.ADDTOBAG) {
+         if(sizes.length === 0) {
+            dispatch(setToastPopup({visible: true, message: "You need to select sizes", position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
+            return
+         }
+         setSizes([])
          dispatch(setToastPopup({visible: true, message: "Added to Cart", position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
          await axios.patch("/api/cart", {product: product, sizes: sizes}).catch((e) => console.log(e))
-      } else {
-         dispatch(setToastPopup({visible: true, message: "Added to Favorites", position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
-         await axios.patch("/api/favorites", {product: product, sizes: sizes}).catch((e) => console.log(e))
+      }
+      if(action === ButtonAction.ADDTOFAV) {
+         const response = await axios.patch("/api/favorites", {product: product}).catch((e) => console.log(e))
+         if(response.data.error) {
+            dispatch(setToastPopup({visible: true, message: response.data.error, position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
+         } else {
+            dispatch(setToastPopup({visible: true, message: response.data.message, position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
+         }
       }
    };
 

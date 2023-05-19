@@ -1,8 +1,24 @@
 import { NextResponse } from "next/server";
 import getCurrentUser from "../../actions/getCurrentUser";
 import prisma from "../../../lib/prismadb";
-import {Product, User} from "@prisma/client";
+import {User} from "@prisma/client";
+import {Product} from "../../types";
 
+
+
+export async function GET(req: Request) {
+
+   const currentUser  = await getCurrentUser();
+   if (!currentUser) {
+      return NextResponse.error();
+   }
+   try {
+      let favorites = [...(currentUser.favorites || [])];
+      return NextResponse.json(favorites)
+   } catch (e) {
+      console.log(e)
+   }
+}
 
 export async function PATCH(req: Request) {
 
@@ -12,14 +28,13 @@ export async function PATCH(req: Request) {
    if (!currentUser) {
       return NextResponse.error();
    }
+   let favorites = [...(currentUser.favorites || [])];
+   if(favorites.length !== 0 && favorites.find((product : Product) => product.id === body.product.id)) {
+      return NextResponse.json({error: "It's already in your favorites"})
+   }
    try {
-      let favorites = [...(currentUser.favorites || [])];
-      const product = body.product
-
-      for (const size of body.sizes) {
-         favorites.push({...product, sizes: size})
-      }
-      const user = await prisma.user.update({
+         favorites.push(body.product)
+      await prisma.user.update({
          where: {
             id: currentUser.id
          },
@@ -29,7 +44,7 @@ export async function PATCH(req: Request) {
             }
          }
       });
-   return NextResponse.json("Success")
+   return NextResponse.json({message: "Added to Favorites"})
    } catch (e) {
       console.log(e)
    }

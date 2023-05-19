@@ -1,5 +1,6 @@
 import React from 'react';
-import DropDown from "../../components/DropDown";
+import DropDown from "../dropdown/DropDown";
+import DropDownSelect from "../dropdown/DropDownSelect";
 
 const Filters = () => {
    return (
@@ -22,10 +23,7 @@ const Filters = () => {
                 </svg>
                 <input  type="text" className="bg-gray-100  pl-9 pr-5 focus:placeholder:text-gray-900 hover:placeholder:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 mx-5 py-2 rounded-full mr-10 " placeholder="Search"/>
              </div>
-             <DropDown title="Sort By" titleStyles="text-lg font-medium">
-
-                {/*<span className="text-lg font-medium">Sort By</span>*/}
-             </DropDown>
+             <DropDownSelect isExpanded={false} changeTittle={true} title="Sort By" titleStyles="text-lg font-medium" itemStyles="px-5" containerStyles="flex flex-col gap-[3px] min-w-max shadow-xl bg-gray-100 px-1 py-2" options={["Featured","Price: High-Low", "Price: Low-High"]}/>
           </div>
 
        </div>
