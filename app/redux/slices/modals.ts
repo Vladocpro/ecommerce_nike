@@ -11,6 +11,10 @@ interface toastPopup {
       type: ToastType,
 
 }
+interface selectSizePopup {
+   isOpen:  boolean,
+   product: Product | null
+}
 
 export enum ToastPositions  {
    AUTH = "inline-block self-center top-5",
@@ -24,7 +28,8 @@ export enum ToastType  {
 
 interface modalState {
    authPopup: boolean,
-   toastPopup: toastPopup
+   toastPopup: toastPopup,
+   selectSizePopup: selectSizePopup
 }
 
 const initialState : modalState = {
@@ -36,6 +41,10 @@ const initialState : modalState = {
       position: ToastPositions.RIGHT,
       type: ToastType.SUCCESS,
    },
+   selectSizePopup: {
+      isOpen: false,
+      product: null
+   }
 };
 
 
@@ -45,6 +54,10 @@ const modalsSlice = createSlice({
    reducers: {
       setAuthPopup: (state, action: PayloadAction<boolean>) => {
          state.authPopup = action.payload;
+      },
+      setSelectSizePopup: (state, action: PayloadAction<selectSizePopup>) => {
+         state.selectSizePopup.isOpen = action.payload.isOpen;
+         state.selectSizePopup.product = action.payload.product;
       },
       setToastPopup: (state, action: PayloadAction<toastPopup>) => {
          state.toastPopup.message = action.payload.message;
@@ -59,9 +72,13 @@ const modalsSlice = createSlice({
          // state.toastPopup.message = "";
          state.toastPopup.duration = 3000;
       },
+      closeSelectSizePopup: (state) => {
+         state.selectSizePopup.isOpen = false;
+         state.selectSizePopup.product = null;
+      },
    },
 })
 
 export const modalsReducer = modalsSlice.reducer
 
-export const {setAuthPopup, setToastPopup, closeToastPopup} = modalsSlice.actions;
+export const {setAuthPopup, setSelectSizePopup, setToastPopup, closeToastPopup, closeSelectSizePopup} = modalsSlice.actions;

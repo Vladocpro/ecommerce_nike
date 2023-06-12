@@ -3,7 +3,15 @@ import {NextResponse} from "next/server";
 
 export async function GET() {
 
-   const currentUser  = await getCurrentUser();
+   try {
+      const currentUser  = await getCurrentUser();
+      if(currentUser === null) {
+         return NextResponse.error();
+      }
+      return NextResponse.json(currentUser)
 
-   return NextResponse.json(currentUser)
+   } catch (e) {
+      console.log(e)
+   }
+
 }

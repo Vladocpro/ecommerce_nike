@@ -67,10 +67,10 @@ const Home =  () => {
       }
       if(action === ButtonAction.ADDTOFAV) {
          const response = await axios.patch("/api/favorites", {product: product}).catch((e) => console.log(e))
-         if(response.data.error) {
+         if(response?.data.error) {
             dispatch(setToastPopup({visible: true, message: response.data.error, position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
          } else {
-            dispatch(setToastPopup({visible: true, message: response.data.message, position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
+            dispatch(setToastPopup({visible: true, message: response?.data.message, position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
          }
       }
    };
@@ -142,6 +142,7 @@ const Home =  () => {
                    <span className="text-2xl">{product?.title}</span>
                    <span className="text-gray-500 font-normal">{product?.category}</span>
                    <span className="mt-2">
+                      {/*@ts-ignore*/}
                    <PriceComponent product={product} showPercent={true}/>
                    </span>
                    <span className="font-normal mt-1 line-clamp-7 text-base">{product.description}</span>
@@ -152,6 +153,7 @@ const Home =  () => {
                       <span className="mr-1.5 text-gray-500 font-medium cursor-pointer">Size Guide</span>
                    </div>
                    <ul className="grid grid-cols-3 gap-x-6 gap-y-2.5 mt-3 mb-6 w-full">
+                      {/*@ts-ignore*/}
                       {product.sizes.map((size : {title: string, isAvailable: boolean}, index: number) => (
                           <SizeElement size={size} key={index} />
                       ))}

@@ -1,10 +1,11 @@
 "use client"
 
 import React, {FC} from 'react';
-import {Product} from "@prisma/client";
+
 import Image from "next/image";
 import Link from "next/link";
 import PriceComponent from "../PriceComponent";
+import {Product} from "../../types";
 
 interface ProductLayoutProps {
    products: Product[]
@@ -12,36 +13,36 @@ interface ProductLayoutProps {
 
 const ProductLayout: FC<ProductLayoutProps> = ({products}) => {
 
-   const [priceFilter, setPriceFilter] = React.useState<{title: string, options : [{optionTitle: string, optionActive: boolean}]}>({title: "On Sale", options : [{optionTitle: "0 50", optionActive: true},{optionTitle: "50 100", optionActive: false},{optionTitle: "100 200", optionActive: false}]})
+   // const [priceFilter, setPriceFilter] = React.useState<{title: string, options : [{optionTitle: string, optionActive: boolean}]}>({title: "On Sale", options : [{optionTitle: "0 50", optionActive: true},{optionTitle: "50 100", optionActive: false},{optionTitle: "100 200", optionActive: false}]})
    // const [priceFilter, setPriceFilter] = React.useState<{title: string, options : [{optionTitle: string, optionActive: boolean}]}>({title: "On Sale", filterType: "Diapazon | Boolean", options : [{optionTitle: "Under £50", optionValue: "0 50, optionActive: true},{optionTitle: "50 100", optionActive: false},{optionTitle: "100 200", optionActive: false}]})
 
 
-   const filteringOfAll = () => {
-      //bla-bla-bla
-      const activeOptions = priceFilter.options.filter(option => option.optionActive)
-
-      const result = filterByPrice(products, activeOptions)
-      console.log(result)
-   }
-
-   const filterByPrice = (products: { price: number }[], options: { optionTitle: string }[]) => {
-      // debugger
-      return options.reduce((filteredProducts: any, option) => {
-         const [min, max] = option.optionTitle.split(" ").map(Number);
-
-         let filteredByPrice;
-         if (min > 0 && max === 0) {
-            filteredByPrice = products.filter(product => product.price > min);
-         } else if (min === 0 && max > 0) {
-            filteredByPrice = products.filter(product => product.price < max);
-         } else {
-            filteredByPrice = products.filter(product => product.price >= min && product.price <= max);
-         }
-         // console.log(filteredProducts)
-         // console.log(filteredByPrice)
-         return [...filteredProducts, ...filteredByPrice];
-      }, []);
-   };
+   // const filteringOfAll = () => {
+   //    //bla-bla-bla
+   //    const activeOptions = priceFilter.options.filter(option => option.optionActive)
+   //
+   //    const result = filterByPrice(products, activeOptions)
+   //    console.log(result)
+   // }
+   //
+   // const filterByPrice = (products: { price: number }[], options: { optionTitle: string }[]) => {
+   //    // debugger
+   //    return options.reduce((filteredProducts: any, option) => {
+   //       const [min, max] = option.optionTitle.split(" ").map(Number);
+   //
+   //       let filteredByPrice;
+   //       if (min > 0 && max === 0) {
+   //          filteredByPrice = products.filter(product => product.price > min);
+   //       } else if (min === 0 && max > 0) {
+   //          filteredByPrice = products.filter(product => product.price < max);
+   //       } else {
+   //          filteredByPrice = products.filter(product => product.price >= min && product.price <= max);
+   //       }
+   //       // console.log(filteredProducts)
+   //       // console.log(filteredByPrice)
+   //       return [...filteredProducts, ...filteredByPrice];
+   //    }, []);
+   // };
 
 
 
@@ -55,6 +56,7 @@ const ProductLayout: FC<ProductLayoutProps> = ({products}) => {
                      priority={true}
                      height={620}
                      width={600}
+                     // @ts-ignore
                      src={product.images[0]}
                      alt="Image"
                  />

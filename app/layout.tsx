@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Providers from "./components/Provider";
 import AuthPopup from "./components/AuthPopup";
 import Toast from "./components/ToastNotification";
+import SelectSizePopup from "./components/modals/SelectSizePopup";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ export default function RootLayout({
          <AuthPopup/>
          <Toast />
          <Footer/>
+         <SelectSizePopup />
       </Providers>
       </body>
     </html>

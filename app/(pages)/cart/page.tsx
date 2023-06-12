@@ -11,25 +11,33 @@ import {setToastPopup, ToastPositions, ToastType} from "../../redux/slices/modal
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import DropDownSelect from "../../components/dropdown/DropDownSelect";
+import {useRouter} from "next/navigation";
 
 enum ButtonAction {
    REMOVEFROMCART = "RemoveFromCart",
    ADDTOFAV = "AddToFav",
 }
+interface ITotals {
+   price: number,
+   quantity: number
+}
 
 const Home =  () => {
    const dispatch = useDispatch()
-
+   const router = useRouter()
    const [currentUser, setCurrentUser] = useState<User | null>(null)
    const [products, setProducts] = useState<Product[] | null>(null)
-   const [totals, setTotals] = useState<{price: number, quantity: number}>({price: 0, quantity: 0})
+   const [totals, setTotals] = useState<ITotals>({price: 0, quantity: 0})
 
    useEffect(() => {
       getFetch("/api/user").then((user : User) => {
+         console.log("ERROR")
          setCurrentUser(user)
-         // @ts-ignore
          setProducts(user.cart)
          if(user.cart)setTotals(getTotals(user.cart))
+      }).catch(e => {
+         console.log("ERROR")
+         router.push("/")
       })
    }, []);
 
@@ -40,9 +48,12 @@ const Home =  () => {
    const getTotals = (tempProducts: Product[]) : {price: number, quantity: number} => {
       let counter = 0
        const totalPrice = Number(tempProducts.reduce((sum, product) => {
-            counter+= product.quantity;
-         if(product.sale === 0)  sum += product.price * product.quantity;
-         else sum += ((product.price - (product.price * product.sale / 100)) * product!.quantity)
+          counter+= product.quantity;
+         if(product.sale === 0)  {
+            sum += product.price * product.quantity;
+         } else {
+            sum += ((product.price - (product.price * product.sale / 100)) * product!.quantity)
+         }
          return sum
       },0).toFixed(2))
       return {price: totalPrice, quantity: counter}
@@ -84,10 +95,10 @@ const Home =  () => {
       if (action === ButtonAction.ADDTOFAV) {
          const {size,  quantity, ...originalProduct} = product
          const response = await axios.patch("/api/favorites", {product: originalProduct}).catch((e) => console.log(e))
-         if(response.data.error) {
+         if(response?.data.error) {
             dispatch(setToastPopup({visible: true, message: response.data.error, position: ToastPositions.AUTH, type: ToastType.ERROR, duration: 2000}))
          } else {
-            dispatch(setToastPopup({visible: true, message: response.data.message, position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
+            dispatch(setToastPopup({visible: true, message: response?.data.message, position: ToastPositions.AUTH, type: ToastType.BLACK, duration: 2000}))
          }
       }
    };

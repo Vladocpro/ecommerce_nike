@@ -29,6 +29,7 @@ export async function PATCH(req: Request) {
       return NextResponse.error();
    }
    let favorites = [...(currentUser.favorites || [])];
+   // @ts-ignore
    if(favorites.length !== 0 && favorites.find((product : Product) => product.id === body.product.id)) {
       return NextResponse.json({error: "It's already in your favorites"})
    }
@@ -50,29 +51,27 @@ export async function PATCH(req: Request) {
    }
 }
 
-export async function DELETE(req: Request) {
+export async function PUT(req: Request) {
 
    const body = await req.json();
+   console.log(body)
 
    const currentUser  = await getCurrentUser();
    if (!currentUser) {
       return NextResponse.error();
    }
    try {
-      let favorites = [...(currentUser.favorites || [])];
-      const product = body.product
-      favorites.filter((item) => (item!.id !== product.id && item!.sizes !== product.sizes))
       const user = await prisma.user.update({
          where: {
             id: currentUser.id
          },
          data: {
             favorites: {
-               set: favorites
+               set: body.products
             }
          }
       });
-      return NextResponse.json("Success")
+      return NextResponse.json({message: "Item was remove from favorites"})
    } catch (e) {
       console.log(e)
    }

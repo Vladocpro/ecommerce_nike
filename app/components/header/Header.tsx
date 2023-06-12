@@ -2,9 +2,11 @@ import React from 'react';
 import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
 import NavLinks from "./NavLinks";
+import getCurrentUser from "../../actions/getCurrentUser";
 
 
-const Header =  () => {
+const Header =  async () => {
+   const currentUser = await getCurrentUser();
 
    return (
        <header className="Container">
@@ -20,7 +22,7 @@ const Header =  () => {
                 <Link className="headerLinks" href="/sales">Sales</Link>
              </div>
 
-            <NavLinks />
+            <NavLinks user={currentUser} />
             <BurgerMenu/>
           </nav>
        </header>

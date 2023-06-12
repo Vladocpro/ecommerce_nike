@@ -17,6 +17,7 @@ const Sales =  () => {
                     width={300}
                     className="w-[92px] h-[92px]  object-cover" alt=""/>
              <button onClick={() => postFetch("/api/product", {})}>Click me</button>
+             <button onClick={() => getFetch("/api/user")}>User</button>
              <button onClick={async () => console.log(await getFetch("/api/testik"))} >See prods</button>
              {/*</div>*/}
              {/*<CldImage*/}

@@ -28,7 +28,6 @@ const AuthPopup = () => {
 
    const dispatch = useDispatch();
    const onSubmit = async (values : LoginForm) => {
-
       const {repPassword, ...data} = values
       try {
 
@@ -51,14 +50,6 @@ const AuthPopup = () => {
             }
          })
 
-         // const response = isRegister ? await postFetch('/api/auth/register', data) : await postFetch('/api/auth/login', data)
-         // if(response.error) {
-         //    dispatch(setToastPopup({visible: true, message: response.error, position: ToastPositions.AUTH, type: ToastType.ERROR}))
-         //    return;
-         // }
-         // localStorage.setItem('user-token', response.token)
-         // dispatch(setAuthData(response.user))
-         // dispatch(setToastPopup({visible: true, message: response.message, position: ToastPositions.AUTH, type: ToastType.SUCCESS, duration: 1000}))
       } catch (e : any) {
          console.log(e)
       }
@@ -71,15 +62,11 @@ const AuthPopup = () => {
       reset()
    }
 
-   // if(!authPopup) {
-   //    return null
-   // }
-
 
    return (
-       <div className={`flex items-center justify-center absolute inset-0 transition-all duration-500 ${authPopup ? "visible" : "invisible opacity-0"}`}>
+       <div className={`flex items-center justify-center fixed z-20 inset-0 transition-all duration-500 ${authPopup ? "visible" : "invisible opacity-0"}`}>
           <div className={`absolute inset-0  bg-[rgba(111,111,111,0.2)] transition-all duration-500 h-full w-full ${authPopup ? "visible" : "invisible opacity-0"}`} onClick={closePopup}/>
-          <form className={`relative  w-80 py-5 flex flex-col bg-white rounded-lg transition-all duration-300 ${authPopup ? "translate-y-0" : "-translate-y-32 opacity-0"}`} onSubmit={ handleSubmit(onSubmit)}>
+          <form className={`relative  w-80 py-5 flex flex-col bg-white rounded-lg transition-all duration-500 ${authPopup ? "translate-y-0" : "-translate-y-32 opacity-0"}`} onSubmit={ handleSubmit(onSubmit)}>
              <span className="absolute font-semibold text-xl top-3 right-4 cursor-pointer" onClick={closePopup}>X</span>
              <span className="mx-auto mt-1 text-lg font-semibold">{!isRegister ? "Login" : "Sign up"}</span>
              <input placeholder="Email"    type="text" id="email"
