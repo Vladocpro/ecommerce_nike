@@ -1,50 +1,36 @@
 "use client"
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { CldImage } from 'next-cloudinary';
 import Image from "next/image";
 import {getFetch,postFetch} from "../../../lib/fetcher";
+import ProductLayout from "../../components/store/ProductLayout";
+import {Product} from "../../types";
 
-const Sales =  () => {
+const Home =  () => {
+
+   const [products, setProducts] = useState<Product[] | undefined>()
+
+   useEffect( () => {
+       getFetch("/api/salesProducts").then(data => setProducts(data)).catch(e => console.log(e));
+   }, []);
+
+
+
+
    return (
-       <div>
-          {/*<img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/air-force-1-07-shoes-GjGXSP.png" alt=""/>*/}
-          <div className="flex gap-4">
-             {/*<div className="w-[300px] h-[300px]">*/}
-                <img
-                    src="https://res.cloudinary.com/dks9uqke3/image/upload/v1683754627/ecommerceNike/Air%20Force%201%2007/air-force-1-07-shoe-QxRXZV_ieww22.jpg"
-                    height={300}
-                    width={300}
-                    className="w-[92px] h-[92px]  object-cover" alt=""/>
-             <button onClick={() => postFetch("/api/product", {})}>Click me</button>
-             <button onClick={() => getFetch("/api/user")}>User</button>
-             <button onClick={async () => console.log(await getFetch("/api/testik"))} >See prods</button>
-             {/*</div>*/}
-             {/*<CldImage*/}
-             {/*    deliveryType="fetch"*/}
-             {/*    height={300}*/}
-             {/*    width={300}*/}
-             {/*    quality={100}*/}
-             {/*    src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/air-force-1-07-shoes-GjGXSP.png"*/}
-             {/*    sizes="50vw"*/}
-             {/*    alt="Shoe"*/}
-             {/*     className="ml-2"*/}
-             {/*/>*/}
-             {/*<div className="w-[300px] h-[300px]">*/}
-                <Image
-                    className="w-[92px] h-[92px]  object-cover"
-                    // fill
-                    priority={true}
-                    height={300}
-                    width={300}
-                    src="https://res.cloudinary.com/dks9uqke3/image/upload/v1683754627/ecommerceNike/Air%20Force%201%2007/air-force-1-07-shoe-QxRXZV_ieww22.jpg"
-                    alt="Description of my image"
-                />
-             {/*</div>*/}
+       <div className=" mt-3 ">
+          <div className="flex flex-col bg-black text-white">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-7 relative font-medium mt-5 mx-auto ">Big Sales 15% Off</h1>
+             <span className="relative  text-sm sm:text-base mobile:px-2  sm:mx-auto  text-justify w-full sm:w-2/3 mb-8 text-white">Visit our outlet stores from your couch and discover the best discounts and offers from a big selection of reduced NIKE items. Take advantage of our great trainers sales prices and add to your sneakers collection for less. Find great deals on the articles you love browsing our sportswear sales collection. It doesn't matter if you're a running addict, a sneakerhead or a committed yogi, thanks to our discount deals you will be able to get the best in running trainers sales, trainers markdowns and reduced training articles without breaking the bank. Order now and save with our latest NIKE articles on sale.</span>
+          </div>
+
+          <div className="Container">
+             {products && <ProductLayout products={products}/>}
           </div>
 
        </div>
    );
 };
 
-export default Sales;
+export default Home;

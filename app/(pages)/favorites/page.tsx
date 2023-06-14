@@ -70,13 +70,13 @@ const HOME =  () => {
                           </svg>
                        </div>
                     </div>
-                    <div className="flex flex-col text-lg mobile:text-base  font-medium" >
+                    <div className="flex flex-col text-lg h-full mobile:text-base  font-medium" >
                        <Link href={`/store/product/${product.id}`}>{product.title}</Link>
                        <span className="text-gray-500 font-normal leading-4">{product.category}</span>
-                       <span className="mt-2">
+                       <span className="my-2">
                     <PriceComponent product={product} showPercent={false} mobileHidePercent={true} />
                     </span>
-                       <div className="mt-2"> <button className="border-2 px-3 py-1.5 mobile:text-base mobile:px-2 mobile:py-1 rounded-2xl hover:border-black transition-all duration-150" onClick={() => dispatch(setSelectSizePopup({isOpen: true, product}))}>Select Size</button> </div>
+                       <div className="flex flex-col items-start justify-end h-full "> <button className="border-2 mt-auto px-3 py-1.5 mobile:text-base mobile:px-2 mobile:py-1 rounded-2xl hover:border-black transition-all duration-150" onClick={() => dispatch(setSelectSizePopup({isOpen: true, product}))}>Select Size</button> </div>
                     </div>
                  </div>
              ))}

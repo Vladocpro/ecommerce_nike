@@ -14,11 +14,11 @@ const Store = async () => {
           <Filters/>
           <div className="flex">
              <aside className="hidden lg:block ml-1 w-[250px] h-full">
-                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="On Sale" options={["Sale"]} />
-                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Price" options={["Under £50", "£50 - £100","£100 - £200",]} />
-                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Category" options={["Shoes","Trousers","T-Shirt","Jacket",]} />
-                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Gender" options={["Men","Women"]} />
-                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Sizes" options={["XS","S","M","L","XL","2XL","3XL"]} />
+                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="On Sale"  category="sale" options={["Sale"]} />
+                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Price"    category="price" options={["Under £50", "£50 - £100","£100 - £200"]} />
+                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Category" category="category" options={["Shoes","Trousers","T-Shirt","Jacket"]} />
+                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Gender"   category="gender" options={["Men","Women"]} />
+                <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Sizes"    category="sizes" options={["XS","S","M","L","XL","2XL","3XL","UK 5.5","UK 6","UK 6.5","UK 7","UK 7.5","UK 8","UK 8.5","UK 9","UK 9.5","UK 10","UK 10.5","UK 11","UK 11.5","UK 12","UK 12.5"]} />
 
              </aside>
              <ProductLayout products={products} />

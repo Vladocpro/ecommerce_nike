@@ -2,6 +2,8 @@
 
 import React, {FC, useState} from 'react';
 import DropDown from "./DropDown";
+import {useDispatch} from "react-redux";
+import {setSortBy} from "../../redux/slices/filters";
 
 interface DropDownSelectProps {
    title: string,
@@ -13,14 +15,16 @@ interface DropDownSelectProps {
    itemClick?: (quantity : number) => void,
    changeTittle: boolean,
    isExpanded: boolean,
+   sortBy?: any[]
    options: any[]
 }
 
 
-const DropDownSelect: FC<DropDownSelectProps> = ({title, titleStyles, changeTittle, itemClick, svgStyles, itemStyles, constTitle,containerStyles, isExpanded,  options}) => {
+const DropDownSelect: FC<DropDownSelectProps> = ({title, titleStyles, changeTittle, itemClick, svgStyles, itemStyles, constTitle,containerStyles, isExpanded, sortBy,  options}) => {
 
    const [dropDownTitle, setDropDownTitle] = useState<string>(title)
    const [isOpen, setIsOpen] = useState<boolean>(isExpanded)
+   const dispatch = useDispatch();
 
    return (
        <DropDown isOpen={isOpen} setIsOpen={setIsOpen} title={changeTittle ? dropDownTitle : title} svgStyles={svgStyles} titleStyles={titleStyles} containerStyles={containerStyles}>
@@ -30,6 +34,9 @@ const DropDownSelect: FC<DropDownSelectProps> = ({title, titleStyles, changeTitt
                  setIsOpen(!isOpen)
                  if (itemClick) {
                     itemClick(Number(item))
+                 }
+                 if(sortBy !== undefined && sortBy.length > 0 && sortBy.length === options.length) {
+                  dispatch(setSortBy(sortBy[index]))
                  }
               }}
                    className={` cursor-pointer hover:text-gray-400 ${itemStyles} rounded-md`}

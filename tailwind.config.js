@@ -23,6 +23,11 @@ module.exports = {
       zIndex: {
         '13': '13',
       },
+      borderWidth: {
+        3: '3px',
+        3.5: '3.5px',
+        4: '4px',
+      },
       lineClamp: {
         7: '7',
       },
@@ -31,5 +36,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
