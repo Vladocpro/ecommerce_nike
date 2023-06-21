@@ -1,9 +1,12 @@
 "use client"
 
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import DropDown from "./DropDown";
 import {useDispatch} from "react-redux";
 import {setSortBy} from "../../redux/slices/filters";
+import {store} from "../../redux/store";
+import {useRouter} from "next/navigation";
+import qs from "qs";
 
 interface DropDownSelectProps {
    title: string,
@@ -26,6 +29,7 @@ const DropDownSelect: FC<DropDownSelectProps> = ({title, titleStyles, changeTitt
    const [isOpen, setIsOpen] = useState<boolean>(isExpanded)
    const dispatch = useDispatch();
 
+
    return (
        <DropDown isOpen={isOpen} setIsOpen={setIsOpen} title={changeTittle ? dropDownTitle : title} svgStyles={svgStyles} titleStyles={titleStyles} containerStyles={containerStyles}>
           {options.map((item, index) => (
@@ -36,7 +40,7 @@ const DropDownSelect: FC<DropDownSelectProps> = ({title, titleStyles, changeTitt
                     itemClick(Number(item))
                  }
                  if(sortBy !== undefined && sortBy.length > 0 && sortBy.length === options.length) {
-                  dispatch(setSortBy(sortBy[index]))
+                    dispatch(setSortBy(sortBy[index]))
                  }
               }}
                    className={` cursor-pointer hover:text-gray-400 ${itemStyles} rounded-md`}

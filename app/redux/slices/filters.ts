@@ -3,19 +3,20 @@ import {RootState} from "../store";
 import {Product, User} from "../../types";
 
 
-interface filtersState {
+export interface IfiltersState {
    sortBy: string | null,
-   sale: boolean | null,
+   search: string| null,
+   sale: boolean,
    price: string[],
    category: string[],
    gender: string[],
    sizes: string[],
-
 }
 
-const initialState : filtersState = {
+const initialState : IfiltersState = {
    sortBy: null,
-   sale: null,
+   search: null,
+   sale: false,
    price: [],
    category: [],
    gender: [],
@@ -32,7 +33,7 @@ const filtersSlice = createSlice({
       },
       setPrice: (state, action: PayloadAction<string>) => {
          let index = state.price.indexOf(action.payload)
-         if(index !== undefined)
+         if(index !== -1)
             state.price.splice(index,1)
          else
             state.price = [...state.price, action.payload];
@@ -43,18 +44,17 @@ const filtersSlice = createSlice({
             state.category.splice(index,1)
          else
             state.category = [...state.category, action.payload];
-         console.log(state.category)
       },
       setGender: (state, action: PayloadAction<string>) => {
          let index = state.gender.indexOf(action.payload)
-         if(index !== undefined)
+         if(index !== -1)
             state.gender.splice(index,1)
          else
             state.gender = [...state.gender, action.payload];
       },
       setSizes: (state, action: PayloadAction<string>) => {
          let index = state.sizes.indexOf(action.payload)
-         if(index !== undefined)
+         if(index !== -1)
             state.sizes.splice(index,1)
          else
             state.sizes = [...state.sizes, action.payload];
@@ -62,9 +62,30 @@ const filtersSlice = createSlice({
       setSortBy: (state, action: PayloadAction<string | null>) => {
            state.sortBy = action.payload
       },
-      setDefaultFilters: (state, action: PayloadAction<string>) => {
+      setSearch: (state, action: PayloadAction<string | null>) => {
+         state.search = action.payload
+      },
+      setFilters: (state, action: PayloadAction<any>) => {
+         if(state.sortBy)
+            state.sortBy = action.payload.sortBy
+         if(state.search)
+            state.sortBy = action.payload.search
+         if(state.sale)
+            state.sale = action.payload.sale
+         if(state.price)
+            state.price = action.payload.price
+         if(state.category)
+            state.category = action.payload.category
+         if(state.gender)
+            state.gender = action.payload.gender
+         if(state.sizes)
+            state.sizes = action.payload.sizes
+
+      },
+      clearFilters: (state) => {
          state.sortBy = null
-         state.sale = null
+         state.search = null
+         state.sale = false
          state.price = []
          state.category = []
          state.gender = []
@@ -75,4 +96,4 @@ const filtersSlice = createSlice({
 
 export const filtersReducer = filtersSlice.reducer
 
-export const {setSortBy,setSale, setPrice, setCategory, setGender, setSizes, setDefaultFilters} = filtersSlice.actions;
+export const {setFilters,setSortBy, setSearch, setSale, setPrice, setCategory, setGender, setSizes, clearFilters} = filtersSlice.actions;
