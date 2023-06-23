@@ -1,7 +1,6 @@
 import prisma from "../../../lib/prismadb";
 import {NextResponse} from "next/server";
 import {Product} from "../../types";
-import {any} from "prop-types";
 
 interface ISize {
    title: string,
@@ -69,8 +68,6 @@ export async function POST(req : any) {
                const [minPrice, maxPrice] = reqFilters.price[i]
                    .split(' - ')
                    .map((price) => parseInt(price.replace('£', ''), 10));
-               console.log(minPrice)
-               console.log(maxPrice)
 
                if (product.saledPrice >= minPrice && product.saledPrice <= maxPrice) {
                   return true;

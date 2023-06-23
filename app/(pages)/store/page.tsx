@@ -3,12 +3,14 @@ import { getProducts } from "../../actions/getProducts";
 import DropDownOptions from "../../components/dropdown/DropDownOptions";
 import ProductLayout from "../../components/store/ProductLayout";
 import Filters from "../../components/store/Filters";
+import FiltersPopup from "../../components/modals/filtersPopup/FiltersPopup";
 
 const Store = async () => {
 
    const products = await getProducts()
 
    return (
+       <>
        <div className="flex flex-col w-[94%]  mx-auto">
           <Filters/>
           <div className="flex">
@@ -23,9 +25,10 @@ const Store = async () => {
                 <ProductLayout products={products} />
              </div>
           </div>
-
        </div>
 
+       <FiltersPopup/>
+   </>
    );
 };
 

@@ -54,7 +54,6 @@ export async function PATCH(req: Request) {
 export async function PUT(req: Request) {
 
    const body = await req.json();
-   console.log(body)
 
    const currentUser  = await getCurrentUser();
    if (!currentUser) {

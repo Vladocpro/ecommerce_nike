@@ -1,11 +1,11 @@
 "use client"
 
-import React, {useCallback, useEffect, useState} from 'react';
-import DropDown from "../dropdown/DropDown";
+import React, {useEffect, useState} from 'react';
 import DropDownSelect from "../dropdown/DropDownSelect";
 import {useDispatch} from "react-redux";
 import {setSearch} from "../../redux/slices/filters";
 import debounce from "lodash.debounce"
+import {setFiltersPopup} from "../../redux/slices/modals";
 
 const Filters = () => {
 
@@ -27,12 +27,14 @@ const Filters = () => {
    }
 
 
-
    return (
        <div className="flex items-center justify-between mt-3 mb-5">
-          <div className="flex items-center justify-center border-2 sm:border-0 rounded-full py-1 px-4 ml-auto sm:ml-0">
-             <span className="sm:ml-12 text-xl font-medium  mx-auto">Filters</span>
-             <svg className="block sm:hidden ml-1.5" focusable="false" viewBox="0 -1 22 22" role="img"
+
+             <span className="hidden lg:inline-block ml-12 text-xl font-medium  mx-auto">Filters</span>
+
+          <div className="lg:hidden cursor-pointer flex items-center justify-center border-2 lg:border-0 rounded-full py-1 px-4 ml-auto lg:ml-0" onClick={() => dispatch(setFiltersPopup(true))}>
+             <span className="text-xl font-medium  mx-auto">Filters</span>
+             <svg className="block lg:hidden ml-1.5" focusable="false" viewBox="0 -1 22 22" role="img"
                   width="26px" height="26px" fill="none">
                 <path stroke="currentColor" strokeWidth="1.5" d="M21 8.25H10m-5.25 0H3"></path>
                 <path stroke="currentColor" strokeWidth="1.5" d="M7.5 6v0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clipRule="evenodd"></path>
@@ -40,7 +42,8 @@ const Filters = () => {
                 <path stroke="currentColor" strokeWidth="1.5" d="M16.5 13.5v0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clipRule="evenodd"></path>
              </svg>
           </div>
-          <div className="hidden sm:flex items-center">
+
+          <div className="hidden lg:flex items-center">
              <div className="relative">
                 <svg aria-hidden="true" className="absolute left-7 top-2"  viewBox="0 0 24 24" role="img" width="24px" height="24px" fill="none">
                    <path stroke="currentColor" strokeWidth="1.5"

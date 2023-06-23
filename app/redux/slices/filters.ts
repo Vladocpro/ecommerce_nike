@@ -3,7 +3,7 @@ import {RootState} from "../store";
 import {Product, User} from "../../types";
 
 
-export interface IfiltersState {
+export interface IFiltersState {
    sortBy: string | null,
    search: string| null,
    sale: boolean,
@@ -13,7 +13,7 @@ export interface IfiltersState {
    sizes: string[],
 }
 
-const initialState : IfiltersState = {
+const initialState : IFiltersState = {
    sortBy: null,
    search: null,
    sale: false,
@@ -66,21 +66,18 @@ const filtersSlice = createSlice({
          state.search = action.payload
       },
       setFilters: (state, action: PayloadAction<any>) => {
-         if(state.sortBy)
             state.sortBy = action.payload.sortBy
-         if(state.search)
-            state.sortBy = action.payload.search
-         if(state.sale)
+            state.search = action.payload.search
+         if(action.payload.sale)
             state.sale = action.payload.sale
-         if(state.price)
+         if(action.payload.price)
             state.price = action.payload.price
-         if(state.category)
+         if(action.payload.category)
             state.category = action.payload.category
-         if(state.gender)
+         if(action.payload.gender)
             state.gender = action.payload.gender
-         if(state.sizes)
+         if(action.payload.sizes)
             state.sizes = action.payload.sizes
-
       },
       clearFilters: (state) => {
          state.sortBy = null

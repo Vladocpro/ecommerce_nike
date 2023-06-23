@@ -8,7 +8,7 @@ import PriceComponent from "../PriceComponent";
 import {Product} from "../../types";
 import {postFetch} from "../../../lib/fetcher";
 import {useDispatch, useSelector} from "react-redux";
-import {clearFilters, IfiltersState, setFilters} from "../../redux/slices/filters";
+import {clearFilters, IFiltersState, setFilters} from "../../redux/slices/filters";
 import {RootState} from "../../redux/store";
 
 interface ProductLayoutProps {
@@ -30,7 +30,6 @@ const ProductLayout: FC<ProductLayoutProps> = ({products}) => {
 
 
    useEffect(() => {
-      console.log(filters)
       postFetch("/api/filteredProducts", filters).then(data => {
          setFilteredProducts(data)
       }).catch(e => console.log(e))

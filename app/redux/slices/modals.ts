@@ -28,12 +28,14 @@ export enum ToastType  {
 
 interface modalState {
    authPopup: boolean,
+   filtersPopup: boolean,
    toastPopup: toastPopup,
    selectSizePopup: selectSizePopup
 }
 
 const initialState : modalState = {
    authPopup: false,
+   filtersPopup: false,
    toastPopup: {
       visible:  false ,
       message: "",
@@ -65,7 +67,9 @@ const modalsSlice = createSlice({
          state.toastPopup.type = action.payload.type;
          if(action.payload.duration) state.toastPopup.duration = action.payload.duration;
          state.toastPopup.visible = action.payload.visible;
-
+      },
+      setFiltersPopup: (state, action: PayloadAction<boolean>) => {
+         state.filtersPopup = action.payload
       },
       closeToastPopup: (state) => {
          state.toastPopup.visible = false;
@@ -81,4 +85,4 @@ const modalsSlice = createSlice({
 
 export const modalsReducer = modalsSlice.reducer
 
-export const {setAuthPopup, setSelectSizePopup, setToastPopup, closeToastPopup, closeSelectSizePopup} = modalsSlice.actions;
+export const {setAuthPopup, setFiltersPopup, setSelectSizePopup, setToastPopup, closeToastPopup, closeSelectSizePopup} = modalsSlice.actions;

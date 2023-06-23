@@ -3,7 +3,7 @@ import React from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/Footer";
 import Providers from "./components/Provider";
-import AuthPopup from "./components/AuthPopup";
+import AuthPopup from "./components/modals/AuthPopup";
 import Toast from "./components/ToastNotification";
 import SelectSizePopup from "./components/modals/SelectSizePopup";
 
