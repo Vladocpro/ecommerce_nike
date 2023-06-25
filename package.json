@@ -13,6 +13,7 @@
     "@next/font": "13.3.0",
     "@prisma/client": "^4.14.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/stripe-js": "^1.54.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
@@ -32,6 +33,7 @@
     "react-hook-form": "^7.43.9",
     "react-multi-carousel": "^2.8.3",
     "react-redux": "^8.0.5",
+    "stripe": "^12.10.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "typescript": "5.0.4"
   },

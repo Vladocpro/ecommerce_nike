@@ -60,5 +60,12 @@ model Order {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
   tracking_number String @unique @default(uuid())
   userId          String @db.ObjectId
-  product         Json
+  paymentIntent   String @unique
+  sessionId       String @unique
+  currency        String
+  items           Json[]
+  amountSubtotal  Float
+  shipping        Int
+  amountTotal     Float
+  date            String
 }

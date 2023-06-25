@@ -5,13 +5,14 @@ import getCurrentUser from "../../actions/getCurrentUser";
 import Image from "next/image";
 import {Product, User} from "../../types";
 import PriceComponent from "../../components/PriceComponent";
-import {getFetch} from "../../../lib/fetcher";
+import {getFetch, postFetch} from "../../../lib/fetcher";
 import Link from "next/link";
 import {setToastPopup, ToastPositions, ToastType} from "../../redux/slices/modals";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import DropDownSelect from "../../components/dropdown/DropDownSelect";
 import {useRouter} from "next/navigation";
+import * as process from "process";
 
 enum ButtonAction {
    REMOVEFROMCART = "RemoveFromCart",
@@ -31,7 +32,6 @@ const Home =  () => {
 
    useEffect(() => {
       getFetch("/api/user").then((user : User) => {
-         console.log("ERROR")
          setCurrentUser(user)
          setProducts(user.cart)
          if(user.cart)setTotals(getTotals(user.cart))
@@ -102,6 +102,12 @@ const Home =  () => {
          }
       }
    };
+
+   const handleCheckout = async () =>{
+
+      const  { url }  = await postFetch('/api/makePayment', {items: products});
+      window.location.assign(url)
+   }
 
    if(!currentUser || !products) {
       return (
@@ -188,7 +194,7 @@ const Home =  () => {
              </div>
 
 
-             <button  className="w-full mt-4 bg-black text-white rounded-full transition-all duration-200 py-4 hover:bg-gray-500">Checkout</button>
+             <button  className="w-full mt-4 bg-black text-white rounded-full transition-all duration-200 py-4 hover:bg-gray-500" onClick={handleCheckout}>Checkout</button>
 
           </aside>
        </div>

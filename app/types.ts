@@ -24,10 +24,17 @@ export type Product = {
    size?       :number
 }
 export type Order = {
-   id:              string,
-   tracking_number: string,
-   productId:       string,
-   userId:          string
+   id              :String
+   tracking_number :String
+   userId          :String
+   paymentIntent   :String
+   sessionId       :String
+   currency        :String
+   items           :any[]
+   amountSubtotal  :number
+   shipping        :number
+   amountTotal     :number
+   date            :String
 }
 export type LoginForm = {
    email: string,
