@@ -49,7 +49,7 @@ const Filters = () => {
                    <path stroke="currentColor" strokeWidth="1.5"
                          d="M13.962 16.296a6.716 6.716 0 01-3.462.954 6.728 6.728 0 01-4.773-1.977A6.728 6.728 0 013.75 10.5c0-1.864.755-3.551 1.977-4.773A6.728 6.728 0 0110.5 3.75c1.864 0 3.551.755 4.773 1.977A6.728 6.728 0 0117.25 10.5a6.726 6.726 0 01-.921 3.407c-.517.882-.434 1.988.289 2.711l3.853 3.853"></path>
                 </svg>
-                <input  type="text" onChange={(e) => handleChange(e)} className="bg-gray-100  pl-9 pr-5 focus:placeholder:text-gray-900 hover:placeholder:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 mx-5 py-2 rounded-full mr-10 " placeholder="Search"/>
+                <input  type="text" onChange={(e) => handleChange(e)} className="bg-gray-100 outline-black  pl-9 pr-5 focus:placeholder:text-gray-900 hover:placeholder:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 mx-5 py-2 rounded-full mr-10 " placeholder="Search"/>
              </div>
              <DropDownSelect isExpanded={false} changeTittle={true} title="Sort By" titleStyles="text-lg font-medium" itemStyles="px-5" containerStyles="flex flex-col gap-[3px] min-w-max shadow-xl bg-gray-100 px-1 py-2" sortBy={[null,"desc", "asc"]} options={["Featured","Price: High-Low", "Price: Low-High"]}/>
           </div>

@@ -8,8 +8,8 @@ interface IParams {
 
 export async function GET(req : any, { params }: { params: IParams }) {
    const {searchParams} = new URL(req.url)
-   const getParam = searchParams.get("sessionId");
-   const sessionId = getParam?.split("=")[1];
+   const sessionId = searchParams.get("sessionId");
+
 
    const user = await getCurrentUser()
    const order = await prisma.order.findUnique({

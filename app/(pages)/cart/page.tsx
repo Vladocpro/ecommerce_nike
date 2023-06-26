@@ -104,7 +104,16 @@ const Home =  () => {
    };
 
    const handleCheckout = async () =>{
-
+      if(products?.length === 0 || products === null) {
+         dispatch(setToastPopup({
+            visible: true,
+            message: "You need to add items first",
+            position: ToastPositions.AUTH,
+            type: ToastType.ERROR,
+            duration: 2000
+         }))
+         return;
+      }
       const  { url }  = await postFetch('/api/makePayment', {items: products});
       window.location.assign(url)
    }
@@ -117,7 +126,7 @@ const Home =  () => {
    }
 
    return (
-       <div className="Container  grid grid-cols-[minmax(440px,_740px)_minmax(260px,_340px)] cartPage:grid-cols-1 gap-5 justify-around mt-12">
+       <div className="Container  grid grid-cols-[minmax(440px,_740px)_minmax(260px,_340px)] cartPage:grid-cols-1 gap-5 justify-around mt-12 pb-3">
           <div className="space-y-4">
                   <div className="mb-6 text-center sm:text-left">
                      <h1 className="text-2xl">Cart</h1>
