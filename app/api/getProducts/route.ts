@@ -34,15 +34,15 @@ export async function POST(req : any, res : NextResponse) {
    }
 }
 
-export async function GET() {
-   try {
-      const products = await prisma.product.findMany();
-
-      return products;
-   } catch (error: any) {
-      throw new Error(error);
-   }
-}
+// export async function GET() {
+//    try {
+//       const products = await prisma.product.findMany();
+//
+//       return products;
+//    } catch (error: any) {
+//       throw new Error(error);
+//    }
+// }
 
 
 

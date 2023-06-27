@@ -1,7 +1,6 @@
 "use client"
 
 import React, {useEffect, useState} from 'react';
-import {getOrders} from "../../actions/getOrders";
 import Image from "next/image";
 import getSymbolFromCurrency from "currency-symbol-map";
 import {getFetch} from "../../../lib/fetcher";
