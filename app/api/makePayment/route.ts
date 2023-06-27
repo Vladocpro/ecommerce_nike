@@ -42,7 +42,7 @@ export async function POST(req: Request) {
          mode: "payment",
          // metadata: { body },
          shipping_options: [{
-            shipping_rate: "shr_1NMarYDZO8WBHoP0EG9mp1pl"
+            shipping_rate: process.env.STRIPE_SHIPPING_RATE
          }],
          line_items: lineItems
       })
