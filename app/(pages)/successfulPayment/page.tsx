@@ -1,7 +1,7 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
-import {useRouter, useSearchParams} from "next/navigation";
+import React, {Suspense, useEffect, useState} from 'react';
+import {useRouter} from "next/navigation";
 import {getFetch} from "../../../lib/fetcher";
 import {Order, User} from "../../types";
 import Image from "next/image";
@@ -13,12 +13,12 @@ const HOME = () => {
    const [user, setUser] = useState<User | undefined>(undefined)
    const [order, setOrder] = useState<Order | undefined>(undefined)
    const [error, setError] = useState<string | null>(null)
-   const params = useSearchParams();
+   // const params = useSearchParams();
 
    // console.log()
 
    useEffect(() => {
-      axios.get("/api/order", {params: {sessionId: params?.get("session_id")}}).then((data : any) => {
+      axios.get("/api/order", {params: {sessionId: window.location.search.substring(12)}}).then((data : any) => {
          setUser(data.data.user)
          setOrder(data.data.order)
       }).catch((e : Error) => {
@@ -43,9 +43,9 @@ const HOME = () => {
    }
 
       return (
-          <div className="h-full">
-             <div className="flex flex-col lg:flex-row justify-between gap-4 w-full h-full px-1">
-                <div className="flex flex-col justify-center mt-2 lg:mt-0 lg:ml-12 lg:grow lg:basis-[55%]">
+             <div className="h-full">
+                <div className="flex flex-col lg:flex-row justify-between gap-4 w-full h-full px-1">
+                   <div className="flex flex-col justify-center mt-2 lg:mt-0 lg:ml-12 lg:grow lg:basis-[55%]">
 
                       <div className="flex gap-2 mb-5">
                          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="50px" height="50px">
@@ -61,78 +61,78 @@ const HOME = () => {
                       </div>
 
 
-                   <div className="flex flex-col border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5 mb-4">
-                      <div className="flex flex-col gap-1 sm:gap-2">
-                        <span>Your order is confirmed</span>
-                         <span>We have accepted your order, and we are getting it ready. Come back to this page for updates on your shipment status.</span>
+                      <div className="flex flex-col border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5 mb-4">
+                         <div className="flex flex-col gap-1 sm:gap-2">
+                            <span>Your order is confirmed</span>
+                            <span>We have accepted your order, and we are getting it ready. Come back to this page for updates on your shipment status.</span>
+                         </div>
+
+                         <hr className="h-[2px]  bg-gray-300 my-2 sm:my-3"/>
+
+                         <div className="flex flex-col gap-1 sm:gap-2">
+                            <span>Other tracking number:</span>
+                            <span>{order.tracking_number}</span>
+                         </div>
                       </div>
 
-                      <hr className="h-[2px]  bg-gray-300 my-2 sm:my-3"/>
-
-                      <div className="flex flex-col gap-1 sm:gap-2">
-                         <span>Other tracking number:</span>
-                         <span>{order.tracking_number}</span>
+                      <div className="flex flex-col gap-1 sm:gap-2 mb-4 border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5">
+                         <span>Other updates</span>
+                         <span>You will get shipping and delivery updates by email and text.</span>
                       </div>
+
+                      <div className="flex text-sm sm:text-base justify-between">
+                         <button className="font-bold cursor-pointer">Need help? Contact us</button>
+                         <button onClick={() => router.push("/store")}>Continue Shopping</button>
+                      </div>
+
                    </div>
 
-                   <div className="flex flex-col gap-1 sm:gap-2 mb-4 border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5">
-                      <span>Other updates</span>
-                      <span>You will get shipping and delivery updates by email and text.</span>
-                   </div>
+                   <div className="flex flex-col grow basis-[40%] gap-3 sm:gap-5 overflow-y-scroll sm:border-l-2 pt-5 sm:pt-8 border-gray-300 bg-gray-100 h-full pb-5 lg:pb-0 px-3 lg:px-5">
+                      {order.items.map((product : any) => (
+                          <div key={product.id} className="flex justify-between items-center gap-3 sm:gap-5">
+                             <Image src={product.image} alt="" width={60} height={60} className="object-cover rounded-lg border-[1px]  border-gray-300"/>
 
-                   <div className="flex text-sm sm:text-base justify-between">
-                      <button className="font-bold cursor-pointer">Need help? Contact us</button>
-                      <button onClick={() => router.push("/store")}>Continue Shopping</button>
-                   </div>
-
-                </div>
-
-                <div className="flex flex-col grow basis-[40%] gap-3 sm:gap-5 overflow-y-scroll sm:border-l-2 pt-5 sm:pt-8 border-gray-300 bg-gray-100 h-full pb-5 lg:pb-0 px-3 lg:px-5">
-                   {order.items.map((product : any) => (
-                       <div key={product.id} className="flex justify-between items-center gap-3 sm:gap-5">
-                          <Image src={product.image} alt="" width={60} height={60} className="object-cover rounded-lg border-[1px]  border-gray-300"/>
-
-                          <div className="flex flex-col grow basis-auto justify-self-start gap-1">
+                             <div className="flex flex-col grow basis-auto justify-self-start gap-1">
                             <span className="text-sm sm:text-lg">
                               {product.name}
                             </span>
-                             <span className="text-gray-500 text-sm sm:text-base">
+                                <span className="text-gray-500 text-sm sm:text-base">
                                  {"Quantity: " + product.quantity}
                            </span>
+                             </div>
+
+                             <div>
+                                {getSymbolFromCurrency(order.currency.toUpperCase())}{(product.price * product.quantity).toFixed(2)}
+                             </div>
                           </div>
+                      ))}
 
-                          <div>
-                             {getSymbolFromCurrency(order.currency.toUpperCase())}{(product.price * product.quantity).toFixed(2)}
-                        </div>
-                       </div>
-                   ))}
+                      <hr className="h-[1px] bg-gray-300"/>
 
-                   <hr className="h-[1px] bg-gray-300"/>
+                      <div>
+                         <div className="flex justify-between items-center">
+                            <span className="text-gray-500 text-sm sm:text-base">Subtotal</span>
+                            <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.amountSubtotal}</span>
+                         </div>
 
-                   <div>
-                      <div className="flex justify-between items-center">
-                         <span className="text-gray-500 text-sm sm:text-base">Subtotal</span>
-                         <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.amountSubtotal}</span>
+                         <div className="flex justify-between items-center">
+                            <span className="text-gray-500 text-sm sm:text-base">Shipping</span>
+                            <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.shipping}</span>
+                         </div>
                       </div>
 
-                      <div className="flex justify-between items-center">
-                      <span className="text-gray-500 text-sm sm:text-base">Shipping</span>
-                      <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.shipping}</span>
+                      <hr className="h-[1px] bg-gray-300"/>
+                      <div className="flex justify-between items-center sm:text-lg">
+                         <span>Total</span>
+                         <div className="flex gap-1 items-center">
+                            <span className="text-gray-400 text-sm">{order.currency.toUpperCase()}</span>
+                            <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.amountTotal}</span>
+                         </div>
                       </div>
+
                    </div>
-
-                   <hr className="h-[1px] bg-gray-300"/>
-                   <div className="flex justify-between items-center sm:text-lg">
-                      <span>Total</span>
-                      <div className="flex gap-1 items-center">
-                         <span className="text-gray-400 text-sm">{order.currency.toUpperCase()}</span>
-                         <span>{getSymbolFromCurrency(order.currency.toUpperCase())}{order.amountTotal}</span>
-                      </div>
-                   </div>
-
                 </div>
              </div>
-          </div>
       );
 
 };
