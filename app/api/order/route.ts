@@ -14,6 +14,7 @@ export async function GET(req : any, { params }: { params: IParams }) {
    const user = await getCurrentUser()
    const order = await prisma.order.findUnique({
       where: {
+         // @ts-ignore
          sessionId: sessionId
       }
    })

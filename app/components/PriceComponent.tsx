@@ -17,7 +17,7 @@ const PriceComponent = ({product, showPercent, mobileHidePercent = false} : { pr
       // }
       return  (
           <span className="flex">
-              <span>£{product.quantity !== undefined ? (calculatedPrice * product.quantity).toFixed(2) : calculatedPrice}</span>
+              <span>£{product.quantity !== undefined ? (Number(calculatedPrice) * product.quantity).toFixed(2) : calculatedPrice}</span>
               <span className="ml-2.5 font-normal text-gray-400 decoration-2 decoration-gray-400 line-through">£{product.quantity !== undefined ? (product.price * product.quantity).toFixed(2) :product.price}</span>
               <span className={`ml-2.5 ${mobileHidePercent && "mobile:hidden"} ${!showPercent && "hidden"} font-medium text-green-500`}>{product.sale}% off</span>
           </span>

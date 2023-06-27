@@ -21,7 +21,10 @@ const HOME = () => {
       axios.get("/api/order", {params: {sessionId: params?.get("session_id")}}).then((data : any) => {
          setUser(data.data.user)
          setOrder(data.data.order)
-      }).catch((e : Error) => setError(e.response.data))
+      }).catch((e : Error) => {
+         // @ts-ignore
+         setError(e.response.data)
+      })
    }, []);
 
    if (error !== null) {

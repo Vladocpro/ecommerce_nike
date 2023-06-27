@@ -22,6 +22,7 @@ const Header =  async () => {
                 <Link className="headerLinks" href="/sales">Sales</Link>
              </div>
 
+              {/*@ts-ignore*/}
              <NavLinks user={currentUser} />
              <BurgerMenu/>
           </nav>

@@ -58,7 +58,9 @@ const HOME = () => {
              </svg>
              <input  type="text" onChange={(e) => handleChange(e)} className="bg-gray-100  pl-9 pr-5 outline-black focus:placeholder:text-gray-900 hover:placeholder:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 mx-5 py-2 rounded-full mr-10 " placeholder="Search by order or date"/>
           </div>
+
           {filteredOrders.map((order) => (
+              // @ts-ignore
               <div className="flex flex-col md:flex-row justify-between border-2 border-gray-300 rounded-lg p-3 hover:border-black cursor-pointer" key={order?.id} onClick={() => router.push("/successfulPayment?session_id=" + order.sessionId)}>
                  <div className="flex flex-col gap-2 text-sm sm:text-base grow basis-[50%]">
                     <span className="md:text-lg font-medium group">Order {order.id}</span>

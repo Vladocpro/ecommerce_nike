@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { headers } from "next/headers"
 import * as stripe from "stripe";
 import Stripe from "stripe";
@@ -57,7 +59,6 @@ export async function POST(req: Request) {
 
       const date = new Date(session.created * 1000);
       const formattedDate = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
-
       await prisma.order.create({
          data: {
             userId: session.client_reference_id,

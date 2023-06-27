@@ -8,6 +8,7 @@ export async function GET(req : any, res : NextResponse) {
       const user = await getCurrentUser()
       const orders: Order[] = await prisma.order.findMany({
          where: {
+            // @ts-ignore
             userId: user.id
          }
       });

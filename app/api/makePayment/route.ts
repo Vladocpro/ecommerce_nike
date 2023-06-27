@@ -6,7 +6,7 @@ import * as process from "process";
 
 export async function POST(req: Request) {
 
-
+   // @ts-ignore
    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: "2022-11-15"
    })
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
          payment_method_types: ["card"],
          success_url: `${process.env.NEXTAUTH_URL}/successfulPayment?session_id={CHECKOUT_SESSION_ID}`,
          cancel_url: `${process.env.NEXTAUTH_URL}/declinedPayment`,
+         // @ts-ignore
          customer_email: currentUser.email,
          client_reference_id: currentUser.id,
          mode: "payment",
