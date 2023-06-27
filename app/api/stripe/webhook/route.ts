@@ -1,5 +1,4 @@
-// @ts-nocheck
-
+//@ts-nocheck
 import { headers } from "next/headers"
 import * as stripe from "stripe";
 import Stripe from "stripe";
@@ -7,11 +6,11 @@ import * as process from "process";
 import prisma from "../../../../lib/prismadb";
 
 
-async function getCartItems(lineItems, stripe) {
+async function getCartItems(lineItems : any, stripe : any) {
    return new Promise((resolve, reject) => {
-      let cartItems = [];
+      let cartItems : any = [];
 
-      lineItems?.data?.forEach(async (item) => {
+      lineItems?.data?.forEach(async (item : any) => {
          const product = await stripe.products.retrieve(item.price.product);
          const productId = product.metadata.productId;
 
