@@ -61,7 +61,7 @@ const HOME = () => {
                    <div className="flex flex-col border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5 mb-4">
                       <div className="flex flex-col gap-1 sm:gap-2">
                         <span>Your order is confirmed</span>
-                         <span>We&apos;ve accepted your order, and we&apos;re getting it ready. Come back to this page for updates on your shipment status.</span>
+                         <span>We have accepted your order, and we are getting it ready. Come back to this page for updates on your shipment status.</span>
                       </div>
 
                       <hr className="h-[2px]  bg-gray-300 my-2 sm:my-3"/>
@@ -74,7 +74,7 @@ const HOME = () => {
 
                    <div className="flex flex-col gap-1 sm:gap-2 mb-4 border-2 border-black rounded-lg text-sm sm:text-base p-2.5 sm:p-5">
                       <span>Other updates</span>
-                      <span>You&apos;ll get shipping and delivery updates by email and text.</span>
+                      <span>You will get shipping and delivery updates by email and text.</span>
                    </div>
 
                    <div className="flex text-sm sm:text-base justify-between">
