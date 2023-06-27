@@ -60,13 +60,13 @@ const HOME =  () => {
                           />
                        </Link>
                        <div className="absolute sm:top-7 sm:right-7 top-2 right-2 cursor-pointer" onClick={() => removeFromFav(product)}>
-                          <div className="relative  top-0 h-8 w-[34px] sm:h-12 sm:w-12 rounded-full bg-white">
+                          <div className="relative top-1 sm:top-0 h-8 w-[34px] sm:h-12 sm:w-12 rounded-full bg-white">
                           </div>
-                          <svg data-version="__VERSION_HERE__"  className="z-0 absolute h-6 sm:h-9 top-1 left-[4.5px] sm:top-[7px] sm:left-[6px]" viewBox="2 2 20 20"
+                          <svg data-version="__VERSION_HERE__"  className="z-0 absolute h-6 sm:h-9 top-2 left-[4.5px] sm:top-[7px] sm:left-[6px]" viewBox="2 2 20 20"
                                xmlns="http://www.w3.org/2000/svg">
                              <path
                                  d="M18.6249601,13.9195841 C21.4420597,10.993861 20.9841034,7.83916811 19.4113413,6.31906421 C17.8385792,4.79896031 14.9917823,4.33678078 13.1202917,6.31906421 C12.8304328,6.53319322 12.5518213,6.91480928 12.3339105,7.0791162 C12.1127972,6.91480928 11.8341858,6.53319322 11.5475293,6.31906421 C9.67283627,4.36222185 6.82924207,4.79896031 5.25647967,6.31906421 C3.68371727,7.83916811 3.22255889,10.993861 6.04286087,13.9195841 L12.3339105,20 C12.4336225,20 18.6249601,13.9195841 18.6249601,13.9195841 Z"
-                                 fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+                                 fill="black" stroke="black" strokeWidth="1.5" strokeLinecap="round"/>
                           </svg>
                        </div>
                     </div>

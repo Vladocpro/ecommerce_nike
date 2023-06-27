@@ -37,8 +37,8 @@ const SelectSizePopup = () => {
 
 
    return (
-       <div className={`flex items-center justify-center cartPage:items-end fixed inset-0 transition-all duration-300 ${selectSizePopup.isOpen ? "visible" : "invisible opacity-0"}`}>
-          <div className={`absolute inset-0 z-20 bg-[rgba(111,111,111,0.5)] transition-all duration-300 h-full w-full ${selectSizePopup.isOpen ? "visible" : "invisible opacity-0"}`} onClick={() => dispatch(closeSelectSizePopup())}/>
+       <div className={`flex items-center justify-center cartPage:items-end fixed inset-0 z-20 transition-all duration-300 ${selectSizePopup.isOpen ? "visible" : "invisible opacity-0"}`}>
+          <div className={`absolute inset-0 z-30 bg-[rgba(111,111,111,0.5)] transition-all duration-300 h-full w-full ${selectSizePopup.isOpen ? "visible" : "invisible opacity-0"}`} onClick={() => dispatch(closeSelectSizePopup())}/>
           <div className={`relative z-30 p-5 bg-white rounded-lg  transition-all  duration-300 ${selectSizePopup.isOpen ? "translate-y-0" : "-translate-y-32 opacity-0"}`}>
              {selectSizePopup.product === null ?
                  (<div className="h-[420px] w-[790px]"></div>)

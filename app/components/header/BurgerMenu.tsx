@@ -12,15 +12,15 @@ const BurgerMenu = () => {
    const isAuth= useSelector((state : RootState) => state.auth.user)
 
    return (
-       <div className="block  sm:hidden">
-          <div className="block relative cursor-pointer z-13 sm:hidden  h-[18px] w-[24px] after:top-[-9px] after:left-[-8px] after:h-[200%] after:w-[165%] space-y-1.5 " onClick={() => setBurgerVisible(!burgerVisible)}>
+       <div className="block sm:hidden">
+          <div className="block relative cursor-pointer z-13 sm:hidden  h-[18px] w-[24px]  after:top-[-9px] after:left-[-8px] after:h-[200%] after:w-[165%] space-y-1.5 " onClick={() => setBurgerVisible(!burgerVisible)}>
              <hr className={`headerBurgerLine ${burgerVisible && "rotate-45  translate-y-[0.5rem] "}`}/>
              <hr className={`headerBurgerLine mx-auto ${burgerVisible ? "w-[1%]" : "w-[100%]" }`}/>
              <hr className={`headerBurgerLine ${burgerVisible && "rotate-[-45deg] translate-y-[-0.5rem] "}`}/>
           </div>
-          <div className={`absolute z-10 inset-0 transition-all duration-300 h-full w-full opacity-[45%] burgerBlockingLayer ${burgerVisible ? "visible" : "invisible opacity-0"}`} onClick={() => setBurgerVisible(!burgerVisible)}/>
-          <div className={`absolute z-10 right-0 top-0 transition-all duration-300 bg-white opacity-100  ${burgerVisible ? "w-[320px] visible" : "invisible"} h-full w-[0] space-y-1.5 `}>
-             <div className="flex flex-col ml-12 mr-3 text-left text-2xl mt-16">
+          <div className={`absolute z-10 inset-0 transition-all duration-300 h-screen w-screen opacity-[45%] burgerBlockingLayer ${burgerVisible ? "visible" : "invisible opacity-0"}`} onClick={() => setBurgerVisible(!burgerVisible)}/>
+          <div className={`fixed z-10 right-0 top-0 h-screen  transition-all duration-300 bg-white opacity-100  ${burgerVisible ? "w-screen visible" : "invisible"} h-full w-[0] space-y-1.5 `}>
+             <div className="flex flex-col ml-10 mr-10 h-full text-left text-2xl mt-16">
                 <Link href="/store" onClick={() => setBurgerVisible(false)} className="headerBurgerLink justify-between mt-3">
                    <span>Store</span>
                    <svg aria-hidden="true" className="headerSvg" viewBox="0 0 24 24" height={29} fill="none">

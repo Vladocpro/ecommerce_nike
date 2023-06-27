@@ -147,8 +147,8 @@ const Home =  () => {
                               {product.category}
                           </span>
 
-                          <div className="flex gap-4">
-                             <span className="text-gray-500 mobile:text-sm">
+                          <div className="flex items-center gap-4">
+                             <span className="text-gray-500 mobile:w-[70px] w-[100px] mobile:text-sm">
                                  Size: {product.size}
                               </span>
                              <div className="text-gray-500 mobile:text-sm">
@@ -173,7 +173,7 @@ const Home =  () => {
                               </div>
                               <div className="headerSvg" onClick={() => productAction(ButtonAction.REMOVEFROMCART, product)}>
                                  <svg  viewBox="0 0 24 24"  height={24} className="h-[24px] mobile:h-[20px]" fill="none">
-                                    <path stroke="currentColor" stroke-miterlimit="10" stroke-width="1.5" d="M14.25 7.5v12m-4.5-12v12M5.25 6v13.5c0 1.24 1.01 2.25 2.25 2.25h9c1.24 0 2.25-1.01 2.25-2.25V5.25h2.75m-2.75 0H21m-12-3h5.25c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H3"/>
+                                    <path stroke="currentColor" strokeMiterlimit="10" strokeWidth="1.5" d="M14.25 7.5v12m-4.5-12v12M5.25 6v13.5c0 1.24 1.01 2.25 2.25 2.25h9c1.24 0 2.25-1.01 2.25-2.25V5.25h2.75m-2.75 0H21m-12-3h5.25c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H3"/>
                                  </svg>
                               </div>
 
