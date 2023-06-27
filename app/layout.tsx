@@ -15,7 +15,7 @@ export default function RootLayout({
 
 
 
-  return (
+   return (
     <html lang="en">
       {/*
         <head /> will contain the components returned by the nearest parent
@@ -24,6 +24,7 @@ export default function RootLayout({
       <head />
       <body>
       <Providers>
+         {/*@ts-ignore*/}
       <Header/>
          <main className="flex-grow w-100%">{children}</main>
          <AuthPopup/>

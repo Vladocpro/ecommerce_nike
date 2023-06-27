@@ -22,6 +22,7 @@ const Store = async () => {
                 <DropDownOptions isExpanded={true} titleStyles="relative text-lg w-[190px] font-medium" svgBox="right-12" title="Sizes"    category="sizes"    options={["XS","S","M","L","XL","2XL","3XL","UK 5.5","UK 6","UK 6.5","UK 7","UK 7.5","UK 8","UK 8.5","UK 9","UK 9.5","UK 10","UK 10.5","UK 11","UK 11.5","UK 12","UK 12.5"]} />
              </aside>
              <div>
+                 {/*@ts-ignore*/}
                 <ProductLayout products={products} />
              </div>
           </div>

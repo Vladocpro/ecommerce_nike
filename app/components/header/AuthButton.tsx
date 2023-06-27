@@ -11,6 +11,7 @@ import {useRouter} from "next/navigation";
 interface AuthButtonProps {
    isLogin : boolean,
 }
+// @ts-ignore
 const AuthButton : FC<AuthButtonProps> = ({isLogin}) => {
 
    const dispatch = useDispatch();

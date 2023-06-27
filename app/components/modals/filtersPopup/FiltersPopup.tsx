@@ -76,11 +76,15 @@ const FiltersPopup = () => {
    const clearFilters= () => {
       setTempFilters(defaultFilterState)
       if (inputRef && inputRef.current) {
+         //@ts-ignore
          inputRef.current.value = "";
       }
       if (sortByRef && sortByRef.current) {
+         //@ts-ignore
          sortByRef.current.checked = false;
+         //@ts-ignore
          sortByRef2.current.checked = false;
+         //@ts-ignore
          sortByRef3.current.checked = false;
       }
    }

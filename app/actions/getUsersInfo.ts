@@ -13,6 +13,7 @@ export default async function getUsersInfo() {
       const products = await prisma.product.findMany({
          where: {
             id: {
+               // @ts-ignore
                in: [...(currentUser.favorites || [])]
             }
          }

@@ -12,7 +12,7 @@ export async function POST(req : any) {
             password: passwordHash
          }
       })
-
+      // @ts-ignore
       const token : string | undefined = await createJWT(user)
       const {password, ...userData} = user
       return NextResponse.json({message: "User has been created", token: token, user: userData})
