@@ -35,13 +35,7 @@ const HOME = () => {
              <button className="mt-3 text-2xl px-7 py-1 border-[2px] border-black hover:bg-black hover:text-white transition-all duration-300" onClick={() => router.push("/")}>Go Home</button>
           </div>
       );
-   }
-   if(order === undefined || user === undefined) {
-      return (
-          <div></div>
-      )
-   }
-
+   } else {
       return (
           <Suspense fallback={<div></div>}>
              <div className="h-full">
@@ -137,6 +131,9 @@ const HOME = () => {
           </Suspense>
 
       );
+
+   }
+
 
 };
 
