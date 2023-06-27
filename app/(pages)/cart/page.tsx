@@ -42,6 +42,7 @@ const Home =  () => {
    }, []);
 
 
+
    useEffect(() => {
          if(products) setTotals(getTotals(products))
    }, [products]);
