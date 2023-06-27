@@ -18,7 +18,7 @@ const HOME = () => {
    // console.log()
 
    useEffect(() => {
-      axios.get("/api/order", {params: {sessionId: window.location.search.substring(12)}}).then((data : any) => {
+      axios.get("/api/order", {params: {sessionId: params?.get("session_id")}}).then((data : any) => {
          setUser(data.data.user)
          setOrder(data.data.order)
       }).catch((e : Error) => {
@@ -43,6 +43,7 @@ const HOME = () => {
    }
 
       return (
+          <Suspense fallback={<div></div>}>
              <div className="h-full">
                 <div className="flex flex-col lg:flex-row justify-between gap-4 w-full h-full px-1">
                    <div className="flex flex-col justify-center mt-2 lg:mt-0 lg:ml-12 lg:grow lg:basis-[55%]">
@@ -133,6 +134,8 @@ const HOME = () => {
                    </div>
                 </div>
              </div>
+          </Suspense>
+
       );
 
 };
