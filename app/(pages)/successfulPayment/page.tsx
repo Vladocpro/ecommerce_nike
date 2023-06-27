@@ -1,7 +1,7 @@
 "use client"
 
 import React, {Suspense, useEffect, useState} from 'react';
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {getFetch} from "../../../lib/fetcher";
 import {Order, User} from "../../types";
 import Image from "next/image";
@@ -13,7 +13,7 @@ const HOME = () => {
    const [user, setUser] = useState<User | undefined>(undefined)
    const [order, setOrder] = useState<Order | undefined>(undefined)
    const [error, setError] = useState<string | null>(null)
-   // const params = useSearchParams();
+   const params = useSearchParams();
 
    // console.log()
 
